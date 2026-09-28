@@ -1,0 +1,2712 @@
+<!doctype html>
+<html class="dark scroll-smooth" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="web_standard" name="shell-type" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+      rel="stylesheet"
+    />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      @layer base {
+        html,
+        body {
+          margin: 0;
+          padding: 0;
+        }
+        body {
+          overscroll-behavior: none;
+        }
+        main > :first-child {
+          margin-top: 0 !important;
+        }
+        main > :last-child {
+          margin-bottom: 0 !important;
+        }
+      }
+      ::-webkit-scrollbar {
+        display: none;
+      }
+
+      /* Shimmer animation for primary CTAs */
+      @keyframes shimmer {
+        0% {
+          transform: translateX(-120%);
+        }
+        100% {
+          transform: translateX(220%);
+        }
+      }
+      .btn-shimmer {
+        position: relative;
+        overflow: hidden;
+      }
+      .btn-shimmer::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 50%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.35),
+          transparent
+        );
+        transform: translateX(-120%);
+        animation: shimmer 3.8s ease-in-out infinite;
+        pointer-events: none;
+      }
+
+      /* Ambient Floating & Bobbing */
+      @keyframes floatSlow {
+        0%,
+        100% {
+          transform: translateY(0px) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-7px) rotate(0.8deg);
+        }
+      }
+      @keyframes floatSubtle {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-5px);
+        }
+      }
+      @keyframes pulseGlow {
+        0%,
+        100% {
+          opacity: 0.25;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.55;
+          transform: scale(1.06);
+        }
+      }
+      @keyframes badgeRotate {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+      @keyframes steamPulse {
+        0%,
+        100% {
+          opacity: 0.4;
+          filter: blur(28px);
+        }
+        50% {
+          opacity: 0.8;
+          filter: blur(36px);
+        }
+      }
+
+      .animate-float-slow {
+        animation: floatSlow 6s ease-in-out infinite;
+      }
+      .animate-float-subtle {
+        animation: floatSubtle 4.5s ease-in-out infinite;
+      }
+      .animate-pulse-glow {
+        animation: pulseGlow 5s ease-in-out infinite;
+      }
+      .animate-steam {
+        animation: steamPulse 4s ease-in-out infinite alternate;
+      }
+
+      /* Card hover glow & interactions */
+      .discipline-card {
+        transition:
+          transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+          box-shadow 0.35s ease,
+          border-color 0.35s ease;
+      }
+      .discipline-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 16px 36px -10px rgba(212, 175, 55, 0.25);
+        border-color: rgba(242, 202, 80, 0.5);
+      }
+
+      .testimonial-card {
+        transition:
+          transform 0.35s ease,
+          box-shadow 0.35s ease,
+          border-color 0.35s ease;
+      }
+      .testimonial-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 14px 30px -8px rgba(212, 175, 55, 0.2);
+        border-color: rgba(242, 202, 80, 0.45);
+      }
+      .testimonial-card:hover .quote-icon {
+        color: #f2ca50;
+        transform: scale(1.15);
+        transition: all 0.3s ease;
+      }
+
+      /* Input golden focus micro-interaction */
+      .gold-input {
+        transition:
+          border-color 0.25s ease,
+          box-shadow 0.25s ease,
+          background-color 0.25s ease;
+      }
+      .gold-input:focus {
+        outline: none;
+        box-shadow:
+          0 0 0 2px rgba(242, 202, 80, 0.45),
+          0 4px 16px rgba(212, 175, 55, 0.15);
+        border-color: #f2ca50;
+      }
+
+      /* Reduced motion accessibility */
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        ::before,
+        ::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+          scroll-behavior: auto !important;
+        }
+      }
+    </style>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-error-container": "#ffdad6",
+              "inverse-surface": "#e5e1e4",
+              "surface-variant": "#353437",
+              "primary-fixed-dim": "#e9c349",
+              "on-secondary-fixed": "#410002",
+              primary: "#f2ca50",
+              "inverse-on-surface": "#303032",
+              "tertiary-container": "#cdb15d",
+              "error-container": "#93000a",
+              "surface-container": "#201f21",
+              background: "#131315",
+              "primary-fixed": "#ffe088",
+              surface: "#131315",
+              "on-primary-fixed-variant": "#574500",
+              "primary-container": "#d4af37",
+              "on-primary": "#3c2f00",
+              "surface-container-low": "#1b1b1d",
+              "surface-tint": "#e9c349",
+              "on-surface-variant": "#d0c5af",
+              "on-primary-container": "#554300",
+              "on-tertiary-fixed": "#231b00",
+              "on-secondary-fixed-variant": "#93000d",
+              "secondary-fixed": "#ffdad6",
+              "inverse-primary": "#735c00",
+              "on-background": "#e5e1e4",
+              "tertiary-fixed": "#ffe087",
+              "surface-container-highest": "#353437",
+              "tertiary-fixed-dim": "#e1c46e",
+              "on-tertiary-fixed-variant": "#574500",
+              outline: "#99907c",
+              secondary: "#ffb4ac",
+              "on-primary-fixed": "#241a00",
+              error: "#ffb4ab",
+              "secondary-container": "#a90111",
+              "surface-container-lowest": "#0e0e10",
+              "surface-bright": "#39393b",
+              "on-tertiary": "#3c2f00",
+              "on-surface": "#e5e1e4",
+              "secondary-fixed-dim": "#ffb4ac",
+              "surface-dim": "#131315",
+              "surface-container-high": "#2a2a2c",
+              "outline-variant": "#4d4635",
+              "on-secondary": "#690006",
+              "on-secondary-container": "#ffb3ab",
+              "on-error": "#690005",
+              tertiary: "#eacc75",
+              "on-tertiary-container": "#554300",
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            spacing: {
+              "space-xs": "0.25rem",
+              "space-lg": "1.5rem",
+              "space-md": "1rem",
+              "space-sm": "0.5rem",
+              "margin-mobile": "1.25rem",
+              "space-xl": "2.5rem",
+              "gutter-lg": "2rem",
+              "gutter-sm": "1rem",
+              gutter: "1.5rem",
+              margin: "2rem",
+              "margin-desktop": "3.5rem",
+            },
+            fontFamily: {
+              "headline-lg": ["Playfair Display"],
+              "body-sm": ["Plus Jakarta Sans"],
+              "label-lg": ["Plus Jakarta Sans"],
+              "headline-xl-mobile": ["Playfair Display"],
+              "label-sm": ["Plus Jakarta Sans"],
+              "body-lg": ["Plus Jakarta Sans"],
+              "headline-md": ["Playfair Display"],
+              "body-md": ["Plus Jakarta Sans"],
+              "headline-lg-mobile": ["Playfair Display"],
+              "headline-sm": ["Playfair Display"],
+              "headline-xl": ["Playfair Display"],
+              "title-md": ["Plus Jakarta Sans"],
+            },
+            fontSize: {
+              "headline-lg": [
+                "40px",
+                {
+                  lineHeight: "50px",
+                  letterSpacing: "-0.01em",
+                  fontWeight: "600",
+                },
+              ],
+              "body-sm": ["13px", { lineHeight: "20px", fontWeight: "400" }],
+              "label-lg": [
+                "14px",
+                {
+                  lineHeight: "20px",
+                  letterSpacing: "0.06em",
+                  fontWeight: "600",
+                },
+              ],
+              "headline-xl-mobile": [
+                "36px",
+                {
+                  lineHeight: "44px",
+                  letterSpacing: "-0.01em",
+                  fontWeight: "700",
+                },
+              ],
+              "label-sm": [
+                "11px",
+                {
+                  lineHeight: "16px",
+                  letterSpacing: "0.1em",
+                  fontWeight: "700",
+                },
+              ],
+              "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+              "headline-md": [
+                "28px",
+                { lineHeight: "36px", fontWeight: "600" },
+              ],
+              "body-md": ["15px", { lineHeight: "24px", fontWeight: "400" }],
+              "headline-lg-mobile": [
+                "28px",
+                { lineHeight: "36px", letterSpacing: "0em", fontWeight: "600" },
+              ],
+              "headline-sm": [
+                "22px",
+                { lineHeight: "30px", fontWeight: "500" },
+              ],
+              "headline-xl": [
+                "56px",
+                {
+                  lineHeight: "68px",
+                  letterSpacing: "-0.02em",
+                  fontWeight: "700",
+                },
+              ],
+              "title-md": [
+                "18px",
+                {
+                  lineHeight: "26px",
+                  letterSpacing: "0.01em",
+                  fontWeight: "600",
+                },
+              ],
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body
+    class="bg-surface font-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container"
+  >
+    <header
+      class="fixed top-0 w-full z-50 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_4px_24px_rgba(0,0,0,0.65)] transition-all duration-300"
+    >
+      <div
+        class="h-20 max-w-[1320px] mx-auto px-margin-mobile md:px-margin lg:px-margin-desktop flex items-center justify-between gap-gutter"
+      >
+        <div class="flex items-center gap-space-md shrink-0">
+          <div class="flex flex-col">
+            <span
+              class="font-headline-sm text-headline-sm text-primary leading-tight tracking-wide"
+              >BHUVIKA CATERINGS</span
+            ><span
+              class="font-label-sm text-label-sm uppercase text-on-surface-variant tracking-[0.2em]"
+              >HAREESH MASTER<br
+            /></span>
+          </div>
+        </div>
+        <nav
+          class="hidden xl:flex items-center gap-space-lg"
+          data-active-classes="bg-primary-container text-on-primary-container font-title-md rounded-lg"
+        >
+          <a
+            aria-current="page"
+            class="uppercase tracking-wider transition-colors py-space-xs px-space-sm bg-primary-container text-on-primary-container font-title-md rounded-lg"
+            data-path="home"
+            href="#hero"
+            >Home</a
+          ><a
+            class="font-label-lg text-label-lg uppercase tracking-wider text-on-surface-variant hover:text-primary transition-colors py-space-xs px-space-sm"
+            data-path="menu"
+            href="#royal-menu"
+            >Menu</a
+          ><a
+            class="font-label-lg text-label-lg uppercase tracking-wider text-on-surface-variant hover:text-primary transition-colors py-space-xs px-space-sm"
+            data-path="services"
+            href="#services-curations"
+            >Services</a
+          >
+        </nav>
+        <div class="flex items-center gap-space-md shrink-0">
+          <div class="hidden md:flex flex-col items-end">
+            <span
+              class="font-label-sm text-label-sm uppercase text-on-surface-variant"
+              >Concierge &amp; VIP Bookings</span
+            ><a
+              class="font-title-md text-title-md text-tertiary hover:text-primary transition-colors tracking-tight"
+              href="tel:+919177694696"
+              >+91 9177694696</a
+            >
+          </div>
+          <a
+            class="btn-shimmer inline-flex items-center justify-center px-space-md py-space-sm rounded-lg bg-primary-container text-on-primary-container font-label-lg text-label-lg uppercase tracking-wider transition-all duration-300 shadow-[0_4px_16px_rgba(212,175,55,0.25)] hover:bg-primary hover:text-on-primary active:scale-95 cursor-pointer"
+            data-path="book-catering"
+            href="#booking-suite"
+            ><span class="material-symbols-outlined text-[18px] mr-space-xs"
+              >restaurant</span
+            >Book a Tasting</a
+          >
+        </div>
+      </div>
+    </header>
+    <main class="w-full pt-20 bg-surface min-h-[calc(100vh-80px)]">
+      <div class="flex flex-col w-full">
+        <!-- HERO SECTION -->
+        <section
+          class="relative w-full overflow-hidden bg-surface-container-lowest"
+          id="hero"
+        >
+          <!-- Ambient Gold Particles Canvas -->
+          <canvas
+            class="absolute inset-0 w-full h-full pointer-events-none z-0 opacity-70"
+            id="ambient-gold-canvas"
+            width="1280"
+            height="745"
+          ></canvas>
+          <!-- Ambient luxury backlight glow -->
+          <div
+            class="absolute -top-32 left-1/4 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[140px] pointer-events-none animate-pulse-glow"
+          ></div>
+          <div
+            class="absolute top-1/2 right-10 w-[500px] h-[500px] bg-secondary-container/20 rounded-full blur-[160px] pointer-events-none animate-pulse-glow"
+            style="animation-delay: 2.5s"
+          ></div>
+          <div
+            class="max-w-[1320px] mx-auto px-margin-mobile md:px-margin lg:px-margin-desktop py-space-xl lg:py-[5rem] relative z-10"
+          >
+            <div
+              class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-lg items-center"
+            >
+              <!-- Left Column: Royal Narrative & CTAs (7 cols) -->
+              <div class="lg:col-span-7 flex flex-col gap-space-lg">
+                <!-- Overline Crest Pill -->
+                <div
+                  class="inline-flex items-center gap-space-sm self-start px-space-md py-space-xs rounded-full bg-surface-container-high/80 backdrop-blur-md shadow-sm border border-outline-variant/30 hover:border-primary/40 transition-colors"
+                >
+                  <span
+                    class="material-symbols-outlined text-primary text-[18px]"
+                    >workspace_premium</span
+                  >
+                  <span
+                    class="font-label-sm text-label-sm uppercase tracking-[0.18em] text-primary"
+                    >Grand Traditional &amp; Contemporary Feasts • Est.
+                    2015</span
+                  >
+                </div>
+                <!-- Main Brand & Punchy Typography -->
+                <div class="flex flex-col gap-space-xs">
+                  <h1
+                    class="font-headline-xl text-headline-xl text-on-surface tracking-tight leading-[1.1]"
+                  >
+                    Hareesh Mastar <br />
+                    <span
+                      class="text-primary italic font-headline-xl drop-shadow-[0_2px_12px_rgba(242,202,80,0.2)]"
+                      >Bhuvika Caterings</span
+                    >
+                  </h1>
+                  <p
+                    class="font-headline-md text-headline-md text-tertiary italic mt-space-xs"
+                  >
+                    “Good Food Brings People Together”
+                  </p>
+                </div>
+                <!-- Subtext Copy -->
+                <p
+                  class="font-body-lg text-body-lg text-on-surface-variant max-w-xl leading-relaxed"
+                >
+                  Authentic heirloom traditions, master culinary craftsmanship,
+                  and silver-service royal hospitality curated meticulously for
+                  unforgettable weddings and grand celebrations across Andhra
+                  Pradesh &amp; Telangana.
+                </p>
+                <!-- Dual Call to Actions -->
+                <div
+                  class="flex flex-wrap items-center gap-space-md pt-space-xs"
+                >
+                  <a
+                    class="btn-shimmer inline-flex items-center justify-center gap-space-xs px-space-lg py-space-md rounded-lg bg-gradient-to-r from-primary-container via-primary to-primary-fixed text-on-primary font-label-lg text-label-lg uppercase tracking-wider shadow-[0_4px_24px_rgba(212,175,55,0.35)] hover:shadow-[0_8px_32px_rgba(212,175,55,0.55)] hover:scale-[1.02] active:scale-95 transition-all"
+                    href="#booking-suite"
+                  >
+                    <span class="material-symbols-outlined text-[20px]"
+                      >calendar_month</span
+                    >
+                    Book Catering / Check Availability
+                  </a>
+                  <a
+                    class="relative group inline-flex items-center justify-center gap-space-xs px-space-lg py-space-md rounded-lg bg-surface-container-high/90 text-on-surface hover:text-primary font-label-lg text-label-lg uppercase tracking-wider shadow-sm transition-all hover:bg-surface-container-highest active:scale-95"
+                    href="#signature-disciplines"
+                  >
+                    <span class="material-symbols-outlined text-[18px]"
+                      >menu_book</span
+                    >
+                    Explore Royal Menus
+                    <span
+                      class="absolute -top-2.5 -right-2 px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-[10px] uppercase font-bold tracking-widest shadow-sm"
+                    >
+                      Chef Pick
+                    </span>
+                  </a>
+                </div>
+                <!-- Metric Cards Row -->
+                <div
+                  class="grid grid-cols-3 gap-gutter-sm pt-space-md max-w-lg"
+                >
+                  <div
+                    class="flex flex-col p-space-sm rounded-lg bg-surface-container-low/90 backdrop-blur-md shadow-sm border border-outline-variant/30 hover:border-primary/50 transition-all duration-300 hover:-translate-y-1"
+                  >
+                    <span
+                      class="font-headline-md text-headline-md text-primary font-bold metric-counter"
+                      data-suffix="+"
+                      data-target="10"
+                      >10+</span
+                    >
+                    <span
+                      class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant"
+                      >Years Heritage</span
+                    >
+                  </div>
+                  <div
+                    class="flex flex-col p-space-sm rounded-lg bg-surface-container-low/90 backdrop-blur-md shadow-sm border border-outline-variant/30 hover:border-primary/50 transition-all duration-300 hover:-translate-y-1"
+                  >
+                    <span
+                      class="font-headline-md text-headline-md text-primary font-bold metric-counter"
+                      data-suffix="+"
+                      data-target="10000"
+                      >10,000+</span
+                    >
+                    <span
+                      class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant"
+                      >Feasts</span
+                    >
+                  </div>
+                  <div
+                    class="flex flex-col p-space-sm rounded-lg bg-surface-container-low/90 backdrop-blur-md shadow-sm border border-outline-variant/30 hover:border-primary/50 transition-all duration-300 hover:-translate-y-1"
+                  >
+                    <span
+                      class="font-headline-md text-headline-md text-secondary text-[26px] font-bold metric-counter"
+                      data-suffix="%"
+                      data-target="100"
+                      >100%</span
+                    >
+                    <span
+                      class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant"
+                      >success rate</span
+                    >
+                  </div>
+                </div>
+              </div>
+              <!-- Right Column: Layered Visual Canvas (5 cols) -->
+              <div
+                class="lg:col-span-5 relative flex justify-center mt-space-lg lg:mt-0"
+              >
+                <div class="relative w-full max-w-[480px]">
+                  <!-- Decorative Gold Ambient Ring Behind Image with Soft Steam Glow -->
+                  <div
+                    class="absolute -inset-4 rounded-xl bg-gradient-to-tr from-primary-container/20 via-primary/10 to-secondary-container/20 blur-xl animate-steam"
+                  ></div>
+                  <!-- Primary Chef Presentation Card -->
+                  <div
+                    class="relative rounded-xl overflow-hidden shadow-[0_20px_48px_rgba(0,0,0,0.85)] bg-surface-container-high aspect-[4/5] transform hover:scale-[1.015] transition-transform duration-500 ease-out border border-outline-variant/30"
+                  >
+                    <img
+                      class="w-full h-full object-cover object-center"
+                      data-alt="Distinguished executive Indian master chef presenting an opulent royal copper handi filled with steaming aromatic biryani topped with fresh mint, golden fried onions, cashews, and delicate saffron rice. Opulent dark banquet kitchen environment with warm golden ambient lighting and gentle rising steam."
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9AjMld7U6hP2BY18u9WSgQi7Vx42Ud-c3E4jf80Cgd4efQQ5OQCney4ZwEMfKzBm5N6QX_OyqA_DkaprlO5H1bfmweV6_LpzYnbWTKPzrGPv2Htifc_HwcQ9q1RXh3BDyiSHBDvzyjn1ruNo1SAz4qJqnMCBcEVcfhh1rZEXIkwV76hZk__EL7UCsqC2t2ds513Rlcy-wiIX0HciPlHXcb2qUApAXEfXrChleWQn9dU97RgKei2ctq6USQvVGW5f44Bq8qWZTDNQ7aQ"
+                    />
+                    <div
+                      class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/30 to-transparent"
+                    ></div>
+                  </div>
+                  <!-- Overlapping Live Cooking Flavour Inset Card with Subtle Floating Motion -->
+                  <div
+                    class="absolute -bottom-8 -left-8 md:-bottom-10 md:-left-12 w-48 sm:w-56 rounded-lg overflow-hidden shadow-[0_16px_36px_rgba(0,0,0,0.9)] bg-surface-container-lowest border border-outline-variant/40 animate-float-slow hover:border-primary/60 transition-all duration-300"
+                  >
+                    <div class="aspect-square relative overflow-hidden">
+                      <img
+                        class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
+                        data-alt="Young enthusiastic South Indian chef dynamically tossing fresh vibrant vegetables and aromatic spices in a sizzling wok over bright blue gas flames in an energetic luxury kitchen studio with fine steam and golden spice mist in air."
+                        src="https://lh3.googleusercontent.com/aida/AEtjO1Xr8H8LMs0d3fbwDezvlsj1JhGx2nZfdGuzZdQUsZxuwnGn__yDyTQZ_uFZhuZP9Oymq0WIIPJsFn5fa3Mrd5eleWAG6OFbMZLMuKFP702PMbyI1TfPsza5gtw3EHtBWBjG_kdI0bPe-9ea-S1p5Em_ccbpqfdesPnI_9Oyszeswsyjgzs0Bo7NiJ1eVHhvn9bhAeZkby-Tpkuus3v-zorQlFmicmX88MrnLaZ4HW_K6tuFxpVcNvkwww"
+                      />
+                      <div
+                        class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-transparent to-transparent"
+                      ></div>
+                    </div>
+                    <div
+                      class="p-space-xs text-center bg-surface-container-low"
+                    >
+                      <span
+                        class="font-label-sm text-[10px] tracking-wider uppercase text-secondary font-bold flex items-center justify-center gap-1"
+                      >
+                        <span class="material-symbols-outlined text-[14px]"
+                          >local_fire_department</span
+                        >
+                        Live Wok &amp; Tandoor
+                      </span>
+                    </div>
+                  </div>
+                  <!-- Floating Stamp Emblem / Badge Top Right with Subtle Bobbing -->
+                  <div
+                    class="absolute -top-4 -right-4 p-space-sm rounded-full bg-surface-container-lowest/90 backdrop-blur-xl shadow-xl flex items-center justify-center animate-float-subtle border border-primary/30 hover:scale-105 transition-transform"
+                  >
+                    <div
+                      class="w-16 h-16 rounded-full bg-gradient-to-br from-primary via-primary-container to-secondary-container p-0.5 flex items-center justify-center"
+                    >
+                      <div
+                        class="w-full h-full rounded-full bg-surface-container-lowest flex flex-col items-center justify-center text-center"
+                      >
+                        <span
+                          class="font-headline-sm text-primary text-sm leading-none font-bold"
+                          >EST.</span
+                        >
+                        <span
+                          class="font-label-sm text-xs font-bold text-on-surface"
+                          >2015</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- LIVE BANQUET STATS TICKER STRIP -->
+        <section
+          class="w-full bg-surface-container-high py-space-md border-y border-outline-variant/30"
+        >
+          <div
+            class="max-w-[1320px] mx-auto px-margin-mobile md:px-margin lg:px-margin-desktop"
+          >
+            <div
+              class="grid grid-cols-2 md:grid-cols-4 gap-gutter items-center"
+            >
+              <div class="flex items-center gap-space-sm group cursor-default">
+                <div
+                  class="w-10 h-10 rounded-lg bg-surface-container-lowest flex items-center justify-center text-primary shrink-0 group-hover:scale-110 group-hover:bg-primary-container group-hover:text-on-primary-container transition-all"
+                >
+                  <span class="material-symbols-outlined text-[22px]"
+                    >soup_kitchen</span
+                  >
+                </div>
+                <div>
+                  <div
+                    class="font-title-md text-title-md text-on-surface leading-tight"
+                  >
+                    200+ Items
+                  </div>
+                  <div
+                    class="font-body-sm text-body-sm text-on-surface-variant"
+                  >
+                    Signature Recipe Vault
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center gap-space-sm group cursor-default">
+                <div
+                  class="w-10 h-10 rounded-lg bg-surface-container-lowest flex items-center justify-center text-primary shrink-0 group-hover:scale-110 group-hover:bg-primary-container group-hover:text-on-primary-container transition-all"
+                >
+                  <span class="material-symbols-outlined text-[22px]"
+                    >diversity_1</span
+                  >
+                </div>
+                <div>
+                  <div
+                    class="font-title-md text-title-md text-on-surface leading-tight"
+                  >
+                    20+ Chefs
+                  </div>
+                  <div
+                    class="font-body-sm text-body-sm text-on-surface-variant"
+                  >
+                    Guild of Seasoned Cooks
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center gap-space-sm group cursor-default">
+                <div
+                  class="w-10 h-10 rounded-lg bg-surface-container-lowest flex items-center justify-center text-primary shrink-0 group-hover:scale-110 group-hover:bg-primary-container group-hover:text-on-primary-container transition-all"
+                >
+                  <span class="material-symbols-outlined text-[22px]"
+                    >table_bar</span
+                  >
+                </div>
+                <div>
+                  <div
+                    class="font-title-md text-title-md text-on-surface leading-tight"
+                  >
+                    10,000+ Guests
+                  </div>
+                  <div
+                    class="font-body-sm text-body-sm text-on-surface-variant"
+                  >
+                    Single-Sitting Capacity
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center gap-space-sm group cursor-default">
+                <div
+                  class="w-10 h-10 rounded-lg bg-surface-container-lowest flex items-center justify-center text-secondary shrink-0 group-hover:scale-110 group-hover:bg-secondary-container group-hover:text-on-secondary-container transition-all"
+                >
+                  <span class="material-symbols-outlined text-[22px]"
+                    >verified_user</span
+                  >
+                </div>
+                <div>
+                  <div
+                    class="font-title-md text-title-md text-on-surface leading-tight"
+                  >
+                    Hygienic Purity
+                  </div>
+                  <div
+                    class="font-body-sm text-body-sm text-on-surface-variant"
+                  >
+                    Daily Laboratory Audited
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- 4 CORE DISCIPLINES (EXPANSIVE 4-COLUMN DESKTOP SHOWCASE) -->
+        <section
+          class="w-full py-space-xl lg:py-[5rem] bg-surface relative"
+          id="services-curations"
+        >
+          <div
+            class="max-w-[1320px] mx-auto px-margin-mobile md:px-margin lg:px-margin-desktop flex flex-col gap-space-xl"
+          >
+            <!-- Section Title Header -->
+            <div
+              class="flex flex-col md:flex-row md:items-end justify-between gap-space-md"
+            >
+              <div class="flex flex-col gap-space-xs max-w-2xl">
+                <div class="flex items-center gap-space-xs text-primary">
+                  <span class="material-symbols-outlined text-[18px]"
+                    >stars</span
+                  >
+                  <span
+                    class="font-label-sm text-label-sm uppercase tracking-widest"
+                    >Our Culinary Quad</span
+                  >
+                </div>
+                <h2 class="font-headline-lg text-headline-lg text-on-surface">
+                  Signature Curations • 4 Disciplines
+                </h2>
+                <p class="font-body-md text-body-md text-on-surface-variant">
+                  Masterfully orchestrated gastronomic divisions engineered to
+                  deliver flawless hospitality, from rustic wood-fire family
+                  gatherings to grand multi-thousand guest nuptial banquets.
+                </p>
+              </div>
+              <a
+                class="inline-flex items-center gap-space-xs text-primary font-label-lg text-label-lg uppercase tracking-wider hover:text-primary-fixed transition-colors self-start md:self-auto group"
+                href="#booking-suite"
+              >
+                Request Custom Tasting
+                <span
+                  class="material-symbols-outlined text-[18px] group-hover:translate-x-1.5 transition-transform"
+                  >east</span
+                >
+              </a>
+            </div>
+            <!-- 4 Discipline Cards Grid with interactive lift and golden glow -->
+            <div
+              class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-gutter"
+            >
+              <!-- CARD 1: Catering Services -->
+              <div
+                class="discipline-card group flex flex-col justify-between rounded-xl bg-surface-container-low p-space-lg shadow-md border border-outline-variant/30 relative overflow-hidden"
+              >
+                <div
+                  class="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-bl-full pointer-events-none group-hover:bg-primary/10 transition-colors"
+                ></div>
+                <div class="flex flex-col gap-space-md">
+                  <!-- Icon & Numbering -->
+                  <div class="flex items-center justify-between">
+                    <div
+                      class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-all duration-300"
+                    >
+                      <span class="material-symbols-outlined text-[28px]"
+                        >dinner_dining</span
+                      >
+                    </div>
+                    <span
+                      class="font-headline-sm text-headline-sm text-outline-variant/60 group-hover:text-primary/60 transition-colors"
+                      >01</span
+                    >
+                  </div>
+                  <!-- Card Headline & Detail -->
+                  <div class="flex flex-col gap-space-xs">
+                    <h3
+                      class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors"
+                    >
+                      Catering Services
+                    </h3>
+                    <p
+                      class="font-label-sm text-label-sm text-primary uppercase tracking-wide"
+                    >
+                      Full-Scale Bespoke Banquets
+                    </p>
+                    <p
+                      class="font-body-sm text-body-sm text-on-surface-variant mt-space-xs"
+                    >
+                      Opulent multi-course spreads served on regal brassware and
+                      silver chaffers. Flawless banquet synchronization backed
+                      by certified live culinary master teams.
+                    </p>
+                  </div>
+                  <!-- Capacity Scale Capsules -->
+                  <div class="flex flex-col gap-1.5 pt-space-xs">
+                    <span
+                      class="font-label-sm text-[10px] uppercase tracking-wider text-outline"
+                      >Guest Scale Tiers:</span
+                    >
+                    <div class="flex flex-wrap gap-1.5">
+                      <span
+                        class="px-2 py-0.5 rounded-full bg-surface-container-highest text-on-surface font-label-sm text-[11px] group-hover:border-primary/30 border border-transparent transition-colors"
+                        >50-250</span
+                      >
+                      <span
+                        class="px-2 py-0.5 rounded-full bg-surface-container-highest text-on-surface font-label-sm text-[11px] group-hover:border-primary/30 border border-transparent transition-colors"
+                        >250-500</span
+                      >
+                      <span
+                        class="px-2 py-0.5 rounded-full bg-surface-container-highest text-on-surface font-label-sm text-[11px] group-hover:border-primary/30 border border-transparent transition-colors"
+                        >500-1500</span
+                      >
+                      <span
+                        class="px-2 py-0.5 rounded-full bg-primary-container text-on-primary-container font-label-sm text-[11px] font-bold"
+                        >5000+ VIP</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <!-- Bottom Action -->
+                <div
+                  class="pt-space-lg mt-space-sm flex items-center justify-between"
+                >
+                  <span
+                    class="font-label-lg text-label-lg uppercase tracking-wider text-primary group-hover:text-primary-fixed"
+                    >View Packages</span
+                  >
+                  <span
+                    class="material-symbols-outlined text-primary group-hover:translate-x-2 transition-transform duration-300"
+                    >arrow_forward</span
+                  >
+                </div>
+              </div>
+              <!-- CARD 2: Home Style Cooking -->
+              <div
+                class="discipline-card group flex flex-col justify-between rounded-xl bg-surface-container-low p-space-lg shadow-md border border-outline-variant/30 relative overflow-hidden"
+              >
+                <div
+                  class="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-bl-full pointer-events-none group-hover:bg-primary/10 transition-colors"
+                ></div>
+                <div class="flex flex-col gap-space-md">
+                  <!-- Icon & Numbering -->
+                  <div class="flex items-center justify-between">
+                    <div
+                      class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-all duration-300"
+                    >
+                      <span class="material-symbols-outlined text-[28px]"
+                        >outdoor_grill</span
+                      >
+                    </div>
+                    <span
+                      class="font-headline-sm text-headline-sm text-outline-variant/60 group-hover:text-primary/60 transition-colors"
+                      >02</span
+                    >
+                  </div>
+                  <!-- Card Headline & Detail -->
+                  <div class="flex flex-col gap-space-xs">
+                    <h3
+                      class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors"
+                    >
+                      Home Style Cooking
+                    </h3>
+                    <p
+                      class="font-label-sm text-label-sm text-primary uppercase tracking-wide"
+                    >
+                      Authentic Heirloom Recipes
+                    </p>
+                    <p
+                      class="font-body-sm text-body-sm text-on-surface-variant mt-space-xs"
+                    >
+                      Slow-simmered regional delicacies prepared strictly in
+                      traditional earthenware and iron kadhais. Infused with
+                      hand-pounded spices, cold-pressed gingelly oil, and
+                      unadulterated desi ghee.
+                    </p>
+                  </div>
+                  <!-- Heritage Attributes -->
+                  <div class="flex flex-col gap-1.5 pt-space-xs">
+                    <span
+                      class="font-label-sm text-[10px] uppercase tracking-wider text-outline"
+                      >Purity Standards:</span
+                    >
+                    <div class="flex flex-wrap gap-1.5">
+                      <span
+                        class="px-2 py-0.5 rounded-full bg-surface-container-highest text-on-surface font-label-sm text-[11px] group-hover:border-primary/30 border border-transparent transition-colors"
+                        >Wood-Fired Pots</span
+                      >
+                      <span
+                        class="px-2 py-0.5 rounded-full bg-surface-container-highest text-on-surface font-label-sm text-[11px] group-hover:border-primary/30 border border-transparent transition-colors"
+                        >Heirloom Masalas</span
+                      >
+                      <span
+                        class="px-2 py-0.5 rounded-full bg-surface-container-highest text-on-surface font-label-sm text-[11px] group-hover:border-primary/30 border border-transparent transition-colors"
+                        >Zero Additives</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <!-- Bottom Action -->
+                <div
+                  class="pt-space-lg mt-space-sm flex items-center justify-between"
+                >
+                  <span
+                    class="font-label-lg text-label-lg uppercase tracking-wider text-primary group-hover:text-primary-fixed"
+                    >Explore Dishes</span
+                  >
+                  <span
+                    class="material-symbols-outlined text-primary group-hover:translate-x-2 transition-transform duration-300"
+                    >arrow_forward</span
+                  >
+                </div>
+              </div>
+              <!-- CARD 3: Events & Functions -->
+              <div
+                class="discipline-card group flex flex-col justify-between rounded-xl bg-surface-container-low p-space-lg shadow-md border border-outline-variant/30 relative overflow-hidden"
+              >
+                <div
+                  class="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-bl-full pointer-events-none group-hover:bg-primary/10 transition-colors"
+                ></div>
+                <div class="flex flex-col gap-space-md">
+                  <!-- Icon & Numbering -->
+                  <div class="flex items-center justify-between">
+                    <div
+                      class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-all duration-300"
+                    >
+                      <span class="material-symbols-outlined text-[28px]"
+                        >celebration</span
+                      >
+                    </div>
+                    <span
+                      class="font-headline-sm text-headline-sm text-outline-variant/60 group-hover:text-primary/60 transition-colors"
+                      >03</span
+                    >
+                  </div>
+                  <!-- Card Headline & Detail -->
+                  <div class="flex flex-col gap-space-xs">
+                    <h3
+                      class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors"
+                    >
+                      Events &amp; Functions
+                    </h3>
+                    <p
+                      class="font-label-sm text-label-sm text-primary uppercase tracking-wide"
+                    >
+                      Turnkey Wedding &amp; VIP Feasts
+                    </p>
+                    <p
+                      class="font-body-sm text-body-sm text-on-surface-variant mt-space-xs"
+                    >
+                      Comprehensive catering curation for Muhurthams, Sangeets,
+                      Seemantham rituals, Gruhapravesams, and corporate summits
+                      with dedicated floor managers and liveried attendants.
+                    </p>
+                  </div>
+                  <!-- Event Coverage Pills -->
+                  <div class="flex flex-col gap-1.5 pt-space-xs">
+                    <span
+                      class="font-label-sm text-[10px] uppercase tracking-wider text-outline"
+                      >Signature Occasions:</span
+                    >
+                    <div class="flex flex-wrap gap-1.5">
+                      <span
+                        class="px-2 py-0.5 rounded-full bg-surface-container-highest text-on-surface font-label-sm text-[11px] group-hover:border-primary/30 border border-transparent transition-colors"
+                        >Muhurthams</span
+                      >
+                      <span
+                        class="px-2 py-0.5 rounded-full bg-surface-container-highest text-on-surface font-label-sm text-[11px] group-hover:border-primary/30 border border-transparent transition-colors"
+                        >Silver Service</span
+                      >
+                      <span
+                        class="px-2 py-0.5 rounded-full bg-surface-container-highest text-on-surface font-label-sm text-[11px] group-hover:border-primary/30 border border-transparent transition-colors"
+                        >Gruhapravesam</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <!-- Bottom Action -->
+                <div
+                  class="pt-space-lg mt-space-sm flex items-center justify-between"
+                >
+                  <span
+                    class="font-label-lg text-label-lg uppercase tracking-wider text-primary group-hover:text-primary-fixed"
+                    >Event Formats</span
+                  >
+                  <span
+                    class="material-symbols-outlined text-primary group-hover:translate-x-2 transition-transform duration-300"
+                    >arrow_forward</span
+                  >
+                </div>
+              </div>
+              <!-- CARD 4: Tasty Food & Live Stations -->
+              <div
+                class="discipline-card group flex flex-col justify-between rounded-xl bg-surface-container-low p-space-lg shadow-md border border-outline-variant/30 relative overflow-hidden"
+              >
+                <div
+                  class="absolute top-0 right-0 w-24 h-24 bg-secondary-container/10 rounded-bl-full pointer-events-none group-hover:bg-secondary-container/20 transition-colors"
+                ></div>
+                <div class="flex flex-col gap-space-md">
+                  <!-- Icon & Numbering -->
+                  <div class="flex items-center justify-between">
+                    <div
+                      class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center text-secondary group-hover:bg-secondary-container group-hover:text-on-secondary-container transition-all duration-300"
+                    >
+                      <span class="material-symbols-outlined text-[28px]"
+                        >local_fire_department</span
+                      >
+                    </div>
+                    <span
+                      class="font-headline-sm text-headline-sm text-outline-variant/60 group-hover:text-secondary/70 transition-colors"
+                      >04</span
+                    >
+                  </div>
+                  <!-- Card Headline & Detail -->
+                  <div class="flex flex-col gap-space-xs">
+                    <h3
+                      class="font-headline-sm text-headline-sm text-on-surface group-hover:text-secondary transition-colors"
+                    >
+                      Tasty Food Stations
+                    </h3>
+                    <p
+                      class="font-label-sm text-label-sm text-secondary uppercase tracking-wide"
+                    >
+                      Dum Biryanis &amp; Sweet Bazaars
+                    </p>
+                    <p
+                      class="font-body-sm text-body-sm text-on-surface-variant mt-space-xs"
+                    >
+                      Sensory theatrics featuring Hareesh Mastar's legendary
+                      sealed-clay pot Dum Biryani, smoking hot starters, live
+                      melt-in-mouth Bobbatlu, hot ghee Jalebi, and authentic
+                      Chaat courts.
+                    </p>
+                  </div>
+                  <!-- Live Station Tags -->
+                  <div class="flex flex-col gap-1.5 pt-space-xs">
+                    <span
+                      class="font-label-sm text-[10px] uppercase tracking-wider text-outline"
+                      >Live Counters:</span
+                    >
+                    <div class="flex flex-wrap gap-1.5">
+                      <span
+                        class="px-2 py-0.5 rounded-full bg-secondary-container/30 text-secondary font-label-sm text-[11px] font-semibold group-hover:border-secondary/40 border border-transparent transition-colors"
+                        >Dum Biryani Pots</span
+                      >
+                      <span
+                        class="px-2 py-0.5 rounded-full bg-surface-container-highest text-on-surface font-label-sm text-[11px] group-hover:border-secondary/30 border border-transparent transition-colors"
+                        >Live Bobbatlu</span
+                      >
+                      <span
+                        class="px-2 py-0.5 rounded-full bg-surface-container-highest text-on-surface font-label-sm text-[11px] group-hover:border-secondary/30 border border-transparent transition-colors"
+                        >Tawa Fry Court</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <!-- Bottom Action -->
+                <div
+                  class="pt-space-lg mt-space-sm flex items-center justify-between"
+                >
+                  <span
+                    class="font-label-lg text-label-lg uppercase tracking-wider text-secondary group-hover:text-on-secondary-container"
+                    >Discover Menu</span
+                  >
+                  <span
+                    class="material-symbols-outlined text-secondary group-hover:translate-x-2 transition-transform duration-300"
+                    >arrow_forward</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section
+          class="w-full py-space-xl lg:py-[5.5rem] bg-surface-container-lowest relative overflow-hidden border-t border-outline-variant/30 scroll-smooth"
+          id="royal-menu"
+          style="scroll-margin-top: 5rem"
+        >
+          <div
+            class="absolute -top-40 right-1/4 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[160px] pointer-events-none"
+          ></div>
+          <div
+            class="max-w-[1320px] mx-auto px-margin-mobile md:px-margin lg:px-margin-desktop flex flex-col gap-space-xl relative z-10"
+          >
+            <div
+              class="flex flex-col md:flex-row md:items-end justify-between gap-space-md"
+            >
+              <div class="flex flex-col gap-space-xs max-w-2xl">
+                <div class="flex items-center gap-space-xs text-primary">
+                  <span class="material-symbols-outlined text-[18px]"
+                    >restaurant_menu</span
+                  ><span
+                    class="font-label-sm text-label-sm uppercase tracking-widest"
+                    >Royal Epicurean Feasts • Signature Recipes</span
+                  >
+                </div>
+                <h2
+                  class="font-headline-lg text-headline-lg text-on-surface leading-tight"
+                >
+                  Authentic Telugu Royal Menu
+                </h2>
+                <p class="font-body-md text-body-md text-on-surface-variant">
+                  Curated heirloom flavors, slow-dum clay pot biryanis, royal
+                  Andhra spice curations, and authentic wedding desserts crafted
+                  under Master Chef Hareesh.
+                </p>
+              </div>
+              <div
+                class="inline-flex items-center gap-2 self-start md:self-auto px-space-md py-space-xs rounded-full bg-surface-container-high border border-outline-variant/30 text-on-surface font-label-sm"
+              >
+                <span class="material-symbols-outlined text-primary text-[18px]"
+                  >military_tech</span
+                ><span class="">Grand Heritage Recipes</span>
+              </div>
+            </div>
+            <div
+              class="flex items-center gap-space-xs overflow-x-auto pb-space-xs"
+            >
+              <button
+                class="px-space-md py-space-xs rounded-full bg-primary-container text-on-primary-container font-label-sm text-label-sm font-semibold shadow-sm shrink-0"
+              >
+                All Delicacies</button
+              ><button
+                class="px-space-md py-space-xs rounded-full bg-surface-container-high text-on-surface-variant hover:text-primary hover:bg-surface-container-highest font-label-sm text-label-sm transition-colors shrink-0"
+              >
+                Royal Biryanis &amp; Pulaos</button
+              ><button
+                class="px-space-md py-space-xs rounded-full bg-surface-container-high text-on-surface-variant hover:text-primary hover:bg-surface-container-highest font-label-sm text-label-sm transition-colors shrink-0"
+              >
+                Traditional Starters &amp; Tawa</button
+              ><button
+                class="px-space-md py-space-xs rounded-full bg-surface-container-high text-on-surface-variant hover:text-primary hover:bg-surface-container-highest font-label-sm text-label-sm transition-colors shrink-0"
+              >
+                Authentic Veg Curries &amp; Pulusu</button
+              ><button
+                class="px-space-md py-space-xs rounded-full bg-surface-container-high text-on-surface-variant hover:text-primary hover:bg-surface-container-highest font-label-sm text-label-sm transition-colors shrink-0"
+              >
+                Heirloom Sweets &amp; Live Counters
+              </button>
+            </div>
+            <div
+              class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter"
+            >
+              <div
+                class="flex flex-col justify-between rounded-xl bg-surface-container-low p-space-md border border-outline-variant/30 hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 shadow-md relative group"
+              >
+                <div class="flex flex-col gap-space-xs">
+                  <div class="flex items-center justify-between">
+                    <span
+                      class="px-2 py-0.5 rounded-full bg-primary-container/20 text-primary border border-primary/30 font-label-sm text-[10px] uppercase font-bold tracking-wider"
+                      >Signature Heirloom</span
+                    ><span
+                      class="w-3 h-3 rounded-full bg-secondary-container flex items-center justify-center shrink-0"
+                      title="Non-Vegetarian"
+                      ><span
+                        class="w-1.5 h-1.5 rounded-full bg-secondary"
+                      ></span
+                    ></span>
+                  </div>
+                  <h3
+                    class="font-title-md text-title-md text-on-surface group-hover:text-primary transition-colors font-semibold mt-space-xs"
+                  >
+                    Mastar's Sealed-Clay Pot Dum Biryani
+                  </h3>
+                  <p
+                    class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed"
+                  >
+                    Aged long-grain Basmati, tender spiced meat, hand-pounded
+                    spices, slow-cooked over woodfire in country clay pots.
+                    Served with Mirchi Ka Salan &amp; Raitha.
+                  </p>
+                </div>
+                <div
+                  class="pt-space-md mt-space-sm border-t border-outline-variant/30 flex items-center justify-between text-body-sm"
+                >
+                  <span
+                    class="text-[11px] font-label-sm text-primary uppercase font-semibold"
+                    >Woodfire Earthen Pot</span
+                  ><span class="text-[12px] text-outline">Wedding Tier 1</span>
+                </div>
+              </div>
+              <div
+                class="flex flex-col justify-between rounded-xl bg-surface-container-low p-space-md border border-outline-variant/30 hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 shadow-md relative group"
+              >
+                <div class="flex flex-col gap-space-xs">
+                  <div class="flex items-center justify-between">
+                    <span
+                      class="px-2 py-0.5 rounded-full bg-surface-container-highest text-secondary border border-secondary/30 font-label-sm text-[10px] uppercase font-bold tracking-wider"
+                      >Live Station</span
+                    ><span
+                      class="w-3 h-3 rounded-full bg-emerald-500/20 border border-emerald-500 flex items-center justify-center shrink-0"
+                      title="Vegetarian"
+                      ><span
+                        class="w-1.5 h-1.5 rounded-full bg-emerald-500"
+                      ></span
+                    ></span>
+                  </div>
+                  <h3
+                    class="font-title-md text-title-md text-on-surface group-hover:text-primary transition-colors font-semibold mt-space-xs"
+                  >
+                    Live Ghee Bobbatlu &amp; Jalebi Counter
+                  </h3>
+                  <p
+                    class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed"
+                  >
+                    Hot melt-in-mouth traditional stuffed Bobbatlu served piping
+                    hot with artisanal churned cow ghee, accompanied by crispy
+                    live saffron jalebis.
+                  </p>
+                </div>
+                <div
+                  class="pt-space-md mt-space-sm border-t border-outline-variant/30 flex items-center justify-between text-body-sm"
+                >
+                  <span
+                    class="text-[11px] font-label-sm text-primary uppercase font-semibold"
+                    >Pure Desi Ghee</span
+                  ><span class="text-[12px] text-outline">Live Attendants</span>
+                </div>
+              </div>
+              <div
+                class="flex flex-col justify-between rounded-xl bg-surface-container-low p-space-md border border-outline-variant/30 hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 shadow-md relative group"
+              >
+                <div class="flex flex-col gap-space-xs">
+                  <div class="flex items-center justify-between">
+                    <span
+                      class="px-2 py-0.5 rounded-full bg-primary-container/20 text-primary border border-primary/30 font-label-sm text-[10px] uppercase font-bold tracking-wider"
+                      >Royal Specialty</span
+                    ><span
+                      class="w-3 h-3 rounded-full bg-secondary-container flex items-center justify-center shrink-0"
+                      title="Non-Vegetarian"
+                      ><span
+                        class="w-1.5 h-1.5 rounded-full bg-secondary"
+                      ></span
+                    ></span>
+                  </div>
+                  <h3
+                    class="font-title-md text-title-md text-on-surface group-hover:text-primary transition-colors font-semibold mt-space-xs"
+                  >
+                    Natu Kodi Pulusu with Garelu
+                  </h3>
+                  <p
+                    class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed"
+                  >
+                    Authentic country chicken simmered in stone-ground Guntur
+                    chili paste, fresh coconut milk and toasted curry leaves,
+                    paired with crisp golden vadas.
+                  </p>
+                </div>
+                <div
+                  class="pt-space-md mt-space-sm border-t border-outline-variant/30 flex items-center justify-between text-body-sm"
+                >
+                  <span
+                    class="text-[11px] font-label-sm text-primary uppercase font-semibold"
+                    >Rayalaseema Heirloom</span
+                  ><span class="text-[12px] text-outline"
+                    >Traditional Pair</span
+                  >
+                </div>
+              </div>
+              <div
+                class="flex flex-col justify-between rounded-xl bg-surface-container-low p-space-md border border-outline-variant/30 hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 shadow-md relative group"
+              >
+                <div class="flex flex-col gap-space-xs">
+                  <div class="flex items-center justify-between">
+                    <span
+                      class="px-2 py-0.5 rounded-full bg-surface-container-highest text-primary border border-outline-variant/30 font-label-sm text-[10px] uppercase font-bold tracking-wider"
+                      >Traditional Veg</span
+                    ><span
+                      class="w-3 h-3 rounded-full bg-emerald-500/20 border border-emerald-500 flex items-center justify-center shrink-0"
+                      title="Vegetarian"
+                      ><span
+                        class="w-1.5 h-1.5 rounded-full bg-emerald-500"
+                      ></span
+                    ></span>
+                  </div>
+                  <h3
+                    class="font-title-md text-title-md text-on-surface group-hover:text-primary transition-colors font-semibold mt-space-xs"
+                  >
+                    Gutti Vankaya Kura
+                  </h3>
+                  <p
+                    class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed"
+                  >
+                    Tender baby brinjals stuffed with slow-roasted white sesame,
+                    roasted groundnuts, and heirloom spices, simmered gently in
+                    rich spiced gravy.
+                  </p>
+                </div>
+                <div
+                  class="pt-space-md mt-space-sm border-t border-outline-variant/30 flex items-center justify-between text-body-sm"
+                >
+                  <span
+                    class="text-[11px] font-label-sm text-primary uppercase font-semibold"
+                    >Satvik Style Available</span
+                  ><span class="text-[12px] text-outline">Classic Feast</span>
+                </div>
+              </div>
+              <div
+                class="flex flex-col justify-between rounded-xl bg-surface-container-low p-space-md border border-outline-variant/30 hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 shadow-md relative group"
+              >
+                <div class="flex flex-col gap-space-xs">
+                  <div class="flex items-center justify-between">
+                    <span
+                      class="px-2 py-0.5 rounded-full bg-secondary-container/20 text-secondary border border-secondary-container/30 font-label-sm text-[10px] uppercase font-bold tracking-wider"
+                      >Chef Choice</span
+                    ><span
+                      class="w-3 h-3 rounded-full bg-secondary-container flex items-center justify-center shrink-0"
+                      title="Non-Vegetarian"
+                      ><span
+                        class="w-1.5 h-1.5 rounded-full bg-secondary"
+                      ></span
+                    ></span>
+                  </div>
+                  <h3
+                    class="font-title-md text-title-md text-on-surface group-hover:text-primary transition-colors font-semibold mt-space-xs"
+                  >
+                    Telangana Golichina Mamsam
+                  </h3>
+                  <p
+                    class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed"
+                  >
+                    Tender pan-seared mutton cubes infused with crushed black
+                    pepper, shallots, garlic, and fresh ground coriander, cooked
+                    to dark golden perfection.
+                  </p>
+                </div>
+                <div
+                  class="pt-space-md mt-space-sm border-t border-outline-variant/30 flex items-center justify-between text-body-sm"
+                >
+                  <span
+                    class="text-[11px] font-label-sm text-primary uppercase font-semibold"
+                    >Slow Tawa Fry</span
+                  ><span class="text-[12px] text-outline"
+                    >Spicy &amp; Robust</span
+                  >
+                </div>
+              </div>
+              <div
+                class="flex flex-col justify-between rounded-xl bg-surface-container-low p-space-md border border-outline-variant/30 hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 shadow-md relative group"
+              >
+                <div class="flex flex-col gap-space-xs">
+                  <div class="flex items-center justify-between">
+                    <span
+                      class="px-2 py-0.5 rounded-full bg-primary-container/20 text-primary border border-primary/30 font-label-sm text-[10px] uppercase font-bold tracking-wider"
+                      >Coastal Royalty</span
+                    ><span
+                      class="w-3 h-3 rounded-full bg-secondary-container flex items-center justify-center shrink-0"
+                      title="Non-Vegetarian"
+                      ><span
+                        class="w-1.5 h-1.5 rounded-full bg-secondary"
+                      ></span
+                    ></span>
+                  </div>
+                  <h3
+                    class="font-title-md text-title-md text-on-surface group-hover:text-primary transition-colors font-semibold mt-space-xs"
+                  >
+                    Ulavacharu Royyala Pulao
+                  </h3>
+                  <p
+                    class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed"
+                  >
+                    Slow-simmered horse gram broth infused with marinated Bay of
+                    Bengal prawns, aromatic short-grain rice, and dollops of
+                    fresh churned butter.
+                  </p>
+                </div>
+                <div
+                  class="pt-space-md mt-space-sm border-t border-outline-variant/30 flex items-center justify-between text-body-sm"
+                >
+                  <span
+                    class="text-[11px] font-label-sm text-primary uppercase font-semibold"
+                    >Godavari Heritage</span
+                  ><span class="text-[12px] text-outline">Bespoke Dish</span>
+                </div>
+              </div>
+              <div
+                class="flex flex-col justify-between rounded-xl bg-surface-container-low p-space-md border border-outline-variant/30 hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 shadow-md relative group"
+              >
+                <div class="flex flex-col gap-space-xs">
+                  <div class="flex items-center justify-between">
+                    <span
+                      class="px-2 py-0.5 rounded-full bg-surface-container-highest text-primary border border-outline-variant/30 font-label-sm text-[10px] uppercase font-bold tracking-wider"
+                      >Bhimavaram Classic</span
+                    ><span
+                      class="w-3 h-3 rounded-full bg-secondary-container flex items-center justify-center shrink-0"
+                      title="Non-Vegetarian"
+                      ><span
+                        class="w-1.5 h-1.5 rounded-full bg-secondary"
+                      ></span
+                    ></span>
+                  </div>
+                  <h3
+                    class="font-title-md text-title-md text-on-surface group-hover:text-primary transition-colors font-semibold mt-space-xs"
+                  >
+                    Raju Gari Kodi Pulao
+                  </h3>
+                  <p
+                    class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed"
+                  >
+                    Royal Kshatriya style fragrant chicken pulao crafted with
+                    subtle green chili paste, caramelized onions, desi ghee, and
+                    golden fried cashew nuts.
+                  </p>
+                </div>
+                <div
+                  class="pt-space-md mt-space-sm border-t border-outline-variant/30 flex items-center justify-between text-body-sm"
+                >
+                  <span
+                    class="text-[11px] font-label-sm text-primary uppercase font-semibold"
+                    >Rich Cashew Crust</span
+                  ><span class="text-[12px] text-outline">Royal Banquet</span>
+                </div>
+              </div>
+              <div
+                class="flex flex-col justify-between rounded-xl bg-surface-container-low p-space-md border border-outline-variant/30 hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 shadow-md relative group"
+              >
+                <div class="flex flex-col gap-space-xs">
+                  <div class="flex items-center justify-between">
+                    <span
+                      class="px-2 py-0.5 rounded-full bg-primary-container/20 text-primary border border-primary/30 font-label-sm text-[10px] uppercase font-bold tracking-wider"
+                      >Royal Dessert</span
+                    ><span
+                      class="w-3 h-3 rounded-full bg-emerald-500/20 border border-emerald-500 flex items-center justify-center shrink-0"
+                      title="Vegetarian"
+                      ><span
+                        class="w-1.5 h-1.5 rounded-full bg-emerald-500"
+                      ></span
+                    ></span>
+                  </div>
+                  <h3
+                    class="font-title-md text-title-md text-on-surface group-hover:text-primary transition-colors font-semibold mt-space-xs"
+                  >
+                    Pootharekulu &amp; Badam Halwa Platter
+                  </h3>
+                  <p
+                    class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed"
+                  >
+                    Feather-light paper-thin Atreyapuram dry fruit Pootharekulu
+                    paired with slow-churned pure cow ghee Badam Halwa and
+                    silver warq garnish.
+                  </p>
+                </div>
+                <div
+                  class="pt-space-md mt-space-sm border-t border-outline-variant/30 flex items-center justify-between text-body-sm"
+                >
+                  <span
+                    class="text-[11px] font-label-sm text-primary uppercase font-semibold"
+                    >Handmade Sheets</span
+                  ><span class="text-[12px] text-outline">Sweet Finale</span>
+                </div>
+              </div>
+            </div>
+            <div
+              class="rounded-2xl bg-surface-container-high/70 border border-outline-variant/30 p-space-lg flex flex-col md:flex-row items-center justify-between gap-space-md mt-space-md"
+            >
+              <div class="flex items-center gap-space-md">
+                <div
+                  class="w-12 h-12 rounded-xl bg-primary-container text-on-primary-container flex items-center justify-center shrink-0"
+                >
+                  <span class="material-symbols-outlined text-[26px]"
+                    >menu_book</span
+                  >
+                </div>
+                <div class="flex flex-col">
+                  <span
+                    class="font-title-md text-title-md text-on-surface font-semibold"
+                    >Customizing your auspicious Muhurtham menu?</span
+                  ><span
+                    class="font-body-sm text-body-sm text-on-surface-variant"
+                    >Download our complete 200+ recipe catalog with pricing
+                    tiers or schedule a personalized menu tasting session.</span
+                  >
+                </div>
+              </div>
+              <div class="flex flex-wrap items-center gap-space-sm shrink-0">
+                <a
+                  class="inline-flex items-center gap-1.5 px-space-md py-space-sm rounded-lg bg-surface-container-highest text-on-surface hover:text-primary font-label-sm text-label-sm uppercase font-bold border border-outline-variant/30 transition-colors"
+                  href="#booking-suite"
+                  ><span class="material-symbols-outlined text-[18px]"
+                    >download</span
+                  >
+                  Download PDF Menu</a
+                ><a
+                  class="btn-shimmer inline-flex items-center gap-1.5 px-space-md py-space-sm rounded-lg bg-primary-container text-on-primary-container hover:bg-primary font-label-sm text-label-sm uppercase font-bold transition-all"
+                  href="#booking-suite"
+                  ><span class="material-symbols-outlined text-[18px]"
+                    >call</span
+                  >
+                  Consult Master Chef</a
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- MASTERS HERITAGE & QUALITY COMMITMENT FULL-WIDTH STATEMENT BANNER -->
+        <section
+          class="w-full bg-surface-container-lowest py-space-xl lg:py-[5.5rem] relative overflow-hidden border-t border-outline-variant/30"
+        >
+          <!-- Atmospheric decorative backdrop image with rich dark vignette scrim -->
+          <div
+            class="absolute inset-0 opacity-15 bg-cover bg-center pointer-events-none"
+            data-alt="Traditional Indian copper vessels and hand-beaten brass cooking handis simmering with aromatic rich spices, bay leaves, star anise, cinnamon quills, and dried red chilies in a moody atmospheric royal culinary kitchen setting with subtle dark background."
+            style="
+              background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuCXc7mEL5PKyAe6-VpbcfVdnhF9uCk8fSSgy3_qVfiDwoPZ1z8Pq_tEEwx8Codc2EeB5qDHnkLSGWJvuonBfPwP26UCuSpOoirqGK2AERAaVXn2ONJ5i4KVyQjS7u0Tg1Q1FRi4gWA1T2Q-_jlKdpN4467WMLQFmhgZfBx0jfpXsv1UC84o9XoBsoi4DpudICGC7HyYkSFfVzdCmVtxpSiXQpzSTUW6bAT7X_IXMbnv-3BvfojK0SFd&quot;);
+            "
+          ></div>
+          <div
+            class="absolute inset-0 bg-gradient-to-r from-surface-container-lowest via-surface-container-lowest/90 to-surface-container-lowest pointer-events-none"
+          ></div>
+          <div
+            class="max-w-[1320px] mx-auto px-margin-mobile md:px-margin lg:px-margin-desktop relative z-10"
+          >
+            <div
+              class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-lg items-center"
+            >
+              <!-- Left Statement (7 cols) -->
+              <div class="lg:col-span-7 flex flex-col gap-space-md">
+                <div class="inline-flex items-center gap-space-xs text-primary">
+                  <span class="material-symbols-outlined text-[20px]"
+                    >workspace_premium</span
+                  >
+                  <span
+                    class="font-label-sm text-label-sm uppercase tracking-[0.2em]"
+                    >Telugu Culinary Nobility</span
+                  >
+                </div>
+                <h2
+                  class="font-headline-xl text-headline-xl text-on-surface leading-tight transition-all duration-700"
+                >
+                  Every Spiced Grain Tells <br class="hidden sm:inline" />
+                  <span
+                    class="text-primary italic drop-shadow-[0_2px_12px_rgba(242,202,80,0.18)]"
+                    >A Story of Telugu Royalty</span
+                  >
+                </h2>
+                <p
+                  class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl leading-relaxed"
+                >
+                  Under the unwavering personal supervision of Mastar Hareesh,
+                  every banquet is a testament to uncompromised culinary
+                  authenticity. We decline frozen produce and shortcuts. From
+                  hill-sourced organic Guntur chilies to pure dairy churned
+                  country ghee, our ingredients are sourced directly from
+                  trusted regional agricultural estates.
+                </p>
+                <!-- 4 Pillars of Integrity Checklist -->
+                <div
+                  class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm pt-space-xs"
+                >
+                  <div class="flex items-center gap-space-xs group">
+                    <span
+                      class="material-symbols-outlined text-primary text-[20px] group-hover:scale-110 transition-transform"
+                      style="font-variation-settings: &quot;FILL&quot; 1"
+                      >check_circle</span
+                    >
+                    <span
+                      class="font-body-md text-body-md text-on-surface group-hover:text-primary transition-colors"
+                      >100% Unadulterated Desi Ghee</span
+                    >
+                  </div>
+                  <div class="flex items-center gap-space-xs group">
+                    <span
+                      class="material-symbols-outlined text-primary text-[20px] group-hover:scale-110 transition-transform"
+                      style="font-variation-settings: &quot;FILL&quot; 1"
+                      >check_circle</span
+                    >
+                    <span
+                      class="font-body-md text-body-md text-on-surface group-hover:text-primary transition-colors"
+                      >Daily Cold-Pressed Wood Oils</span
+                    >
+                  </div>
+                  <div class="flex items-center gap-space-xs group">
+                    <span
+                      class="material-symbols-outlined text-primary text-[20px] group-hover:scale-110 transition-transform"
+                      style="font-variation-settings: &quot;FILL&quot; 1"
+                      >check_circle</span
+                    >
+                    <span
+                      class="font-body-md text-body-md text-on-surface group-hover:text-primary transition-colors"
+                      >Hand-Pounded Stone Ground Spices</span
+                    >
+                  </div>
+                  <div class="flex items-center gap-space-xs group">
+                    <span
+                      class="material-symbols-outlined text-primary text-[20px] group-hover:scale-110 transition-transform"
+                      style="font-variation-settings: &quot;FILL&quot; 1"
+                      >check_circle</span
+                    >
+                    <span
+                      class="font-body-md text-body-md text-on-surface group-hover:text-primary transition-colors"
+                      >Strict FSSAI &amp; ISO 22000 Protocols</span
+                    >
+                  </div>
+                </div>
+              </div>
+              <!-- Right Trust Seal Cards Matrix (5 cols) -->
+              <div class="lg:col-span-5 grid grid-cols-2 gap-gutter-sm">
+                <div
+                  class="flex flex-col p-space-md rounded-xl bg-surface-container-high/90 backdrop-blur-md shadow-lg border border-outline-variant/30 text-center items-center justify-center gap-space-xs hover:border-primary/50 hover:-translate-y-1 transition-all duration-300"
+                >
+                  <span
+                    class="material-symbols-outlined text-[36px] text-primary"
+                    >eco</span
+                  >
+                  <span
+                    class="font-title-md text-title-md text-on-surface font-semibold"
+                    >Make with Heart</span
+                  >
+                  <span
+                    class="font-body-sm text-body-sm text-on-surface-variant"
+                    >Procured fresh every dawn</span
+                  >
+                </div>
+                <div
+                  class="flex flex-col p-space-md rounded-xl bg-surface-container-high/90 backdrop-blur-md shadow-lg border border-outline-variant/30 text-center items-center justify-center gap-space-xs hover:border-secondary/50 hover:-translate-y-1 transition-all duration-300"
+                >
+                  <span
+                    class="material-symbols-outlined text-[36px] text-secondary"
+                    >verified</span
+                  >
+                  <span
+                    class="font-title-md text-title-md text-on-surface font-semibold"
+                    >Natural Spices</span
+                  >
+                  <span
+                    class="font-body-sm text-body-sm text-on-surface-variant"
+                    >Zero synthetic food colors</span
+                  >
+                </div>
+                <div
+                  class="flex flex-col p-space-md rounded-xl bg-surface-container-high/90 backdrop-blur-md shadow-lg border border-outline-variant/30 text-center items-center justify-center gap-space-xs hover:border-primary/50 hover:-translate-y-1 transition-all duration-300"
+                >
+                  <span
+                    class="material-symbols-outlined text-[36px] text-primary"
+                    >health_and_safety</span
+                  >
+                  <span
+                    class="font-title-md text-title-md text-on-surface font-semibold"
+                    >Pure trust</span
+                  >
+                  <span
+                    class="font-body-sm text-body-sm text-on-surface-variant"
+                    >Central statutory licensed</span
+                  >
+                </div>
+                <div
+                  class="flex flex-col p-space-md rounded-xl bg-surface-container-high/90 backdrop-blur-md shadow-lg border border-outline-variant/30 text-center items-center justify-center gap-space-xs hover:border-primary/50 hover:-translate-y-1 transition-all duration-300"
+                >
+                  <span
+                    class="material-symbols-outlined text-[36px] text-primary"
+                    >clean_hands</span
+                  >
+                  <span
+                    class="font-title-md text-title-md text-on-surface font-semibold"
+                    >100% Hygiene</span
+                  >
+                  <span
+                    class="font-body-sm text-body-sm text-on-surface-variant"
+                    >Sterilized banquet kitchen</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- BANQUET TASTING & LIVE CAPACITY ESTIMATOR COMPONENT -->
+        <section
+          class="w-full py-space-xl bg-surface-container-low border-t border-outline-variant/30"
+        >
+          <div
+            class="max-w-[1320px] mx-auto px-margin-mobile md:px-margin lg:px-margin-desktop"
+          >
+            <div
+              class="rounded-2xl bg-surface-container p-space-lg md:p-space-xl shadow-xl flex flex-col gap-space-lg border border-outline-variant/30"
+            >
+              <div
+                class="flex flex-col md:flex-row md:items-center justify-between gap-space-md"
+              >
+                <div class="flex flex-col gap-1">
+                  <span
+                    class="font-label-sm text-label-sm uppercase tracking-widest text-primary"
+                    >Interactive Banquet Planner</span
+                  >
+                  <h3 class="font-headline-md text-headline-md text-on-surface">
+                    Estimate Your Royal Event Requirements
+                  </h3>
+                </div>
+                <div
+                  class="inline-flex items-center gap-2 px-space-md py-space-xs rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm border border-outline-variant/30"
+                >
+                  <span
+                    class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"
+                  ></span>
+                  Booking open for 2026 - 2027 Wedding Muhurthams
+                </div>
+              </div>
+              <!-- Custom Interactive Slider & Counter Display -->
+              <div
+                class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-lg items-center pt-space-xs"
+              >
+                <div class="lg:col-span-8 flex flex-col gap-space-md">
+                  <div class="flex items-center justify-between">
+                    <span class="font-title-md text-title-md text-on-surface"
+                      >Anticipated Guest Attendance</span
+                    >
+                    <span
+                      class="font-headline-lg text-headline-lg text-primary font-bold transition-all duration-200"
+                      id="guest-display"
+                      >500 Guests</span
+                    >
+                  </div>
+                  <!-- Range slider with styled container -->
+                  <input
+                    class="w-full h-3 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-primary transition-all duration-150 focus:outline-none"
+                    id="guest-slider"
+                    max="5000"
+                    min="50"
+                    step="50"
+                    type="range"
+                    value="500"
+                  />
+                  <!-- Range labels -->
+                  <div
+                    class="flex justify-between font-label-sm text-label-sm text-outline"
+                  >
+                    <span class="">Intimate (50)</span>
+                    <span class="">Classic Wedding (500)</span>
+                    <span class="">Grand Reception (1500)</span>
+                    <span class="">Royal Mega-Banquets (5000+)</span>
+                  </div>
+                </div>
+                <div
+                  class="lg:col-span-4 rounded-xl bg-surface-container-high p-space-md flex flex-col gap-space-xs border border-primary/20 hover:border-primary/40 transition-colors shadow-md relative overflow-hidden"
+                  id="service-card"
+                >
+                  <div
+                    class="absolute -top-12 -right-12 w-28 h-28 bg-primary/10 rounded-full blur-xl pointer-events-none"
+                  ></div>
+                  <span
+                    class="font-label-sm text-label-sm text-outline uppercase tracking-wider"
+                    >Recommended Setup</span
+                  >
+                  <div
+                    class="font-title-md text-title-md text-primary font-semibold transition-all duration-300"
+                    id="service-type-display"
+                  >
+                    Grand Silver Buffet + 4 Live Counters
+                  </div>
+                  <p
+                    class="font-body-sm text-body-sm text-on-surface-variant transition-opacity duration-300"
+                    id="service-desc-display"
+                  >
+                    Includes dedicated head chef, 35 uniformed stewards, copper
+                    chaffers, and royal welcome beverage counter.
+                  </p>
+                  <a
+                    class="mt-space-xs inline-flex items-center gap-1 font-label-sm text-label-sm uppercase font-bold text-secondary hover:text-on-secondary-container group"
+                    href="#booking-suite"
+                  >
+                    Lock this configuration
+                    <span
+                      class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform"
+                      >arrow_right_alt</span
+                    >
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- ROYAL FEAST BOOKING & CONCIERGE SUITE -->
+        <section
+          class="w-full py-space-xl lg:py-[5rem] bg-surface-container-lowest relative overflow-hidden border-t border-outline-variant/40"
+        >
+          <div
+            class="absolute top-0 right-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[160px] pointer-events-none"
+          ></div>
+          <div
+            class="max-w-[1320px] mx-auto px-margin-mobile md:px-margin lg:px-margin-desktop flex flex-col gap-space-xl relative z-10"
+          >
+            <div
+              class="flex flex-col md:flex-row md:items-end justify-between gap-space-md"
+            >
+              <div class="flex flex-col gap-space-xs max-w-2xl">
+                <div class="inline-flex items-center gap-space-xs text-primary">
+                  <span class="material-symbols-outlined text-[18px]"
+                    >verified</span
+                  ><span
+                    class="font-label-sm text-label-sm uppercase tracking-widest"
+                    >Telugu Banquet Praises</span
+                  >
+                </div>
+                <h2
+                  class="font-headline-lg text-headline-lg text-on-surface leading-tight"
+                >
+                  Client Accolades &amp; Royal Feasts
+                </h2>
+                <p class="font-body-md text-body-md text-on-surface-variant">
+                  Words from Families &amp; Grand Celebrations Across Andhra
+                  &amp; Telangana
+                </p>
+              </div>
+              <div
+                class="inline-flex items-center gap-space-sm px-space-md py-space-xs rounded-full bg-surface-container-high border border-outline-variant/40 self-start md:self-auto hover:border-primary/40 transition-colors"
+              >
+                <div class="flex items-center text-primary">
+                  <span
+                    class="material-symbols-outlined text-[16px]"
+                    style="font-variation-settings: &quot;FILL&quot; 1"
+                    >star</span
+                  ><span
+                    class="material-symbols-outlined text-[16px]"
+                    style="font-variation-settings: &quot;FILL&quot; 1"
+                    >star</span
+                  ><span
+                    class="material-symbols-outlined text-[16px]"
+                    style="font-variation-settings: &quot;FILL&quot; 1"
+                    >star</span
+                  ><span
+                    class="material-symbols-outlined text-[16px]"
+                    style="font-variation-settings: &quot;FILL&quot; 1"
+                    >star</span
+                  ><span
+                    class="material-symbols-outlined text-[16px]"
+                    style="font-variation-settings: &quot;FILL&quot; 1"
+                    >star</span
+                  >
+                </div>
+                <span
+                  class="font-label-sm text-label-sm text-on-surface font-semibold"
+                  >4.9/5 Rating</span
+                ><span class="font-body-sm text-[12px] text-on-surface-variant"
+                  >from 1,200+ Grand Weddings &amp; Banquets</span
+                >
+              </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+              <div
+                class="testimonial-card flex flex-col justify-between p-space-lg rounded-xl bg-surface-container-low border border-outline-variant/40 shadow-lg relative group transition-all duration-300"
+              >
+                <div class="flex flex-col gap-space-md">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-0.5 text-primary">
+                      <span
+                        class="material-symbols-outlined text-[18px]"
+                        style="font-variation-settings: &quot;FILL&quot; 1"
+                        >star</span
+                      ><span
+                        class="material-symbols-outlined text-[18px]"
+                        style="font-variation-settings: &quot;FILL&quot; 1"
+                        >star</span
+                      ><span
+                        class="material-symbols-outlined text-[18px]"
+                        style="font-variation-settings: &quot;FILL&quot; 1"
+                        >star</span
+                      ><span
+                        class="material-symbols-outlined text-[18px]"
+                        style="font-variation-settings: &quot;FILL&quot; 1"
+                        >star</span
+                      ><span
+                        class="material-symbols-outlined text-[18px]"
+                        style="font-variation-settings: &quot;FILL&quot; 1"
+                        >star</span
+                      >
+                    </div>
+                    <span
+                      class="quote-icon material-symbols-outlined text-outline-variant/60 text-[28px] transition-all"
+                      >format_quote</span
+                    >
+                  </div>
+                  <div class="flex flex-col gap-space-xs">
+                    <h3
+                      class="font-title-md text-title-md text-primary font-semibold"
+                    >
+                      A Grand Wedding at Gachibowli, Hyderabad
+                    </h3>
+                    <p
+                      class="font-body-md text-body-md text-on-surface-variant leading-relaxed italic mt-space-xs"
+                    >
+                      “Hareesh Mastar's Pot Dum Biryani and live Bobbatlu
+                      counter were the highlight of my daughter's wedding with
+                      1,800 guests. The authentic Telugu flavors and
+                      silver-service coordination were simply unparalleled.”
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="pt-space-md mt-space-md border-t border-outline-variant/40 flex items-center justify-between"
+                >
+                  <div class="flex flex-col">
+                    <span
+                      class="font-title-md text-title-md text-on-surface font-semibold"
+                      >Dr. K. Seshagiri Rao &amp; Family</span
+                    ><span class="font-body-sm text-[12px] text-outline"
+                      >1,800 Guests • Royal Wedding</span
+                    >
+                  </div>
+                  <span
+                    class="material-symbols-outlined text-primary text-[20px] group-hover:scale-110 transition-transform"
+                    >verified</span
+                  >
+                </div>
+              </div>
+              <div
+                class="testimonial-card flex flex-col justify-between p-space-lg rounded-xl bg-surface-container-low border border-outline-variant/40 shadow-lg relative group transition-all duration-300"
+              >
+                <div class="flex flex-col gap-space-md">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-0.5 text-primary">
+                      <span
+                        class="material-symbols-outlined text-[18px]"
+                        style="font-variation-settings: &quot;FILL&quot; 1"
+                        >star</span
+                      ><span
+                        class="material-symbols-outlined text-[18px]"
+                        style="font-variation-settings: &quot;FILL&quot; 1"
+                        >star</span
+                      ><span
+                        class="material-symbols-outlined text-[18px]"
+                        style="font-variation-settings: &quot;FILL&quot; 1"
+                        >star</span
+                      ><span
+                        class="material-symbols-outlined text-[18px]"
+                        style="font-variation-settings: &quot;FILL&quot; 1"
+                        >star</span
+                      ><span
+                        class="material-symbols-outlined text-[18px]"
+                        style="font-variation-settings: &quot;FILL&quot; 1"
+                        >star</span
+                      >
+                    </div>
+                    <span
+                      class="quote-icon material-symbols-outlined text-outline-variant/60 text-[28px] transition-all"
+                      >format_quote</span
+                    >
+                  </div>
+                  <div class="flex flex-col gap-space-xs">
+                    <h3
+                      class="font-title-md text-title-md text-primary font-semibold"
+                    >
+                      Corporate Jubilee &amp; VIP Summit, Vijayawada
+                    </h3>
+                    <p
+                      class="font-body-md text-body-md text-on-surface-variant leading-relaxed italic mt-space-xs"
+                    >
+                      “Managing 3,000 delegates with customized regional thalis,
+                      live tawa counters, and zero delays. Pure unadulterated
+                      ghee and hand-pounded spices set their taste far apart
+                      from conventional caterers.”
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="pt-space-md mt-space-md border-t border-outline-variant/40 flex items-center justify-between"
+                >
+                  <div class="flex flex-col">
+                    <span
+                      class="font-title-md text-title-md text-on-surface font-semibold"
+                      >Ramesh Varma</span
+                    ><span class="font-body-sm text-[12px] text-outline"
+                      >Event Director • 3,000 Delegates</span
+                    >
+                  </div>
+                  <span
+                    class="material-symbols-outlined text-primary text-[20px] group-hover:scale-110 transition-transform"
+                    >verified</span
+                  >
+                </div>
+              </div>
+              <div
+                class="testimonial-card flex flex-col justify-between p-space-lg rounded-xl bg-surface-container-low border border-outline-variant/40 shadow-lg relative group transition-all duration-300"
+              >
+                <div class="flex flex-col gap-space-md">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-0.5 text-primary">
+                      <span
+                        class="material-symbols-outlined text-[18px]"
+                        style="font-variation-settings: &quot;FILL&quot; 1"
+                        >star</span
+                      ><span
+                        class="material-symbols-outlined text-[18px]"
+                        style="font-variation-settings: &quot;FILL&quot; 1"
+                        >star</span
+                      ><span
+                        class="material-symbols-outlined text-[18px]"
+                        style="font-variation-settings: &quot;FILL&quot; 1"
+                        >star</span
+                      ><span
+                        class="material-symbols-outlined text-[18px]"
+                        style="font-variation-settings: &quot;FILL&quot; 1"
+                        >star</span
+                      ><span
+                        class="material-symbols-outlined text-[18px]"
+                        style="font-variation-settings: &quot;FILL&quot; 1"
+                        >star</span
+                      >
+                    </div>
+                    <span
+                      class="quote-icon material-symbols-outlined text-outline-variant/60 text-[28px] transition-all"
+                      >format_quote</span
+                    >
+                  </div>
+                  <div class="flex flex-col gap-space-xs">
+                    <h3
+                      class="font-title-md text-title-md text-primary font-semibold"
+                    >
+                      Traditional Gruhapravesam, Guntur
+                    </h3>
+                    <p
+                      class="font-body-md text-body-md text-on-surface-variant leading-relaxed italic mt-space-xs"
+                    >
+                      “Pure Satvik heirloom recipes prepared in brassware and
+                      traditional earthen pots. Every elder in our family
+                      praised the authentic home-style flavors and attentive
+                      floor hospitality.”
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="pt-space-md mt-space-md border-t border-outline-variant/40 flex items-center justify-between"
+                >
+                  <div class="flex flex-col">
+                    <span
+                      class="font-title-md text-title-md text-on-surface font-semibold"
+                      >Ananya &amp; Venkat Ramana</span
+                    ><span class="font-body-sm text-[12px] text-outline"
+                      >450 Guests • Gruhapravesam</span
+                    >
+                  </div>
+                  <span
+                    class="material-symbols-outlined text-primary text-[20px] group-hover:scale-110 transition-transform"
+                    >verified</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section
+          class="w-full py-space-xl lg:py-[5.5rem] bg-surface relative"
+          id="booking-suite"
+        >
+          <div
+            class="max-w-[1320px] mx-auto px-margin-mobile md:px-margin lg:px-margin-desktop"
+          >
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-lg">
+              <!-- Left Side: Concierge Info & Chef Mastar Desk (5 cols) -->
+              <div class="lg:col-span-5 flex flex-col gap-space-lg">
+                <div class="flex flex-col gap-space-xs">
+                  <div
+                    class="inline-flex items-center gap-space-xs text-secondary"
+                  >
+                    <span class="material-symbols-outlined text-[18px]"
+                      >verified</span
+                    >
+                    <span
+                      class="font-label-sm text-label-sm uppercase tracking-widest"
+                      >Master Concierge Desk</span
+                    >
+                  </div>
+                  <h2 class="font-headline-lg text-headline-lg text-on-surface">
+                    Reserve Your Royal Feast
+                  </h2>
+                  <p
+                    class="font-body-md text-body-md text-on-surface-variant mt-space-xs"
+                  >
+                    Every celebratory feast deserves bespoke culinary planning.
+                    Share your event dates to schedule a private tasting session
+                    at our studio kitchens or arrange direct consultation with
+                    Master Chef Hareesh.
+                  </p>
+                </div>
+                <!-- Direct Phone Card -->
+                <div
+                  class="rounded-xl bg-surface-container-low p-space-md flex items-center gap-space-md shadow-sm border border-outline-variant/30 hover:border-primary/40 transition-colors"
+                >
+                  <div
+                    class="w-12 h-12 rounded-lg bg-primary-container text-on-primary-container flex items-center justify-center shrink-0"
+                  >
+                    <span class="material-symbols-outlined text-[24px]"
+                      >call</span
+                    >
+                  </div>
+                  <div class="flex flex-col">
+                    <span
+                      class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider"
+                      >Direct Booking Line</span
+                    >
+                    <a
+                      class="font-headline-sm text-headline-sm text-primary hover:text-primary-fixed transition-colors font-bold"
+                      href="tel:+919177694696"
+                      >+91 9177694696</a
+                    >
+                    <span class="font-body-sm text-[12px] text-outline"
+                      >Available 24/7 for auspicious date bookings</span
+                    >
+                  </div>
+                </div>
+                <!-- Direct WhatsApp Concierge Card -->
+                <div
+                  class="rounded-xl bg-surface-container-low p-space-md flex items-center gap-space-md shadow-sm border border-outline-variant/30 hover:border-emerald-500/40 transition-colors"
+                >
+                  <div
+                    class="w-12 h-12 rounded-lg bg-surface-container-high text-emerald-400 flex items-center justify-center shrink-0"
+                  >
+                    <span class="material-symbols-outlined text-[24px]"
+                      >chat</span
+                    >
+                  </div>
+                  <div class="flex flex-col">
+                    <span
+                      class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider"
+                      >Instant Menu on WhatsApp</span
+                    >
+                    <a
+                      class="font-title-md text-title-md text-on-surface hover:text-primary transition-colors font-semibold"
+                      href="https://wa.me/+919177694696?text=Hello%20Chef%20Hareesh,%20I%20would%20like%20to%20inquire%20about%20your%20banquet%20services."
+                      target="_blank"
+                      >Chat with Catering Director</a
+                    >
+                    <span class="font-body-sm text-[12px] text-outline"
+                      >Receive curated PDF wedding brochures instantly</span
+                    >
+                  </div>
+                </div>
+                <!-- Regional Kitchen Hubs -->
+                <div
+                  class="flex flex-col gap-space-xs p-space-md rounded-xl bg-surface-container-high/60 border border-outline-variant/30"
+                >
+                  <span
+                    class="font-label-sm text-label-sm text-primary uppercase tracking-wider flex items-center gap-1"
+                  >
+                    <span class="material-symbols-outlined text-[16px]"
+                      >pin_drop</span
+                    >
+                    Regional Banquet Hubs
+                  </span>
+                  <div
+                    class="flex justify-between items-center text-on-surface-variant text-body-sm font-body-sm pt-1"
+                  >
+                    <span class="">Vijayawada (AP Head Kitchen)</span>
+                    <span class="text-primary font-semibold">Active</span>
+                  </div>
+                  <div
+                    class="flex justify-between items-center text-on-surface-variant text-body-sm font-body-sm"
+                  >
+                    <span class="">Hyderabad (Jubilee Hills Banquets)</span>
+                    <span class="text-primary font-semibold">Active</span>
+                  </div>
+                  <div
+                    class="flex justify-between items-center text-on-surface-variant text-body-sm font-body-sm"
+                  >
+                    <span class=""
+                      >Visakhapatnam &amp; Guntur Express Hubs</span
+                    >
+                    <span class="text-primary font-semibold">Active</span>
+                  </div>
+                </div>
+              </div>
+              <!-- Right Side: Luxury 2-Column Reservation Form (7 cols) -->
+              <div class="lg:col-span-7">
+                <div
+                  class="rounded-2xl bg-surface-container-low p-space-lg md:p-space-xl shadow-xl border border-outline-variant/30"
+                >
+                  <form
+                    class="flex flex-col gap-space-md"
+                    id="catering-booking-form"
+                    onsubmit="
+                      event.preventDefault();
+                      handleBookingSubmit();
+                    "
+                  >
+                    <div class="flex items-center justify-between pb-space-xs">
+                      <span
+                        class="font-headline-sm text-headline-sm text-on-surface"
+                        >Feast Reservation Form</span
+                      >
+                      <span
+                        class="font-label-sm text-label-sm text-primary uppercase tracking-widest flex items-center gap-1"
+                      >
+                        <span class="material-symbols-outlined text-[14px]"
+                          >lock</span
+                        >
+                        Priority Concierge
+                      </span>
+                    </div>
+                    <!-- Two Column Fields Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+                      <!-- Full Name -->
+                      <div class="flex flex-col gap-1.5">
+                        <label
+                          class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant"
+                          for="full-name"
+                          >Full Name *</label
+                        >
+                        <input
+                          class="gold-input w-full px-space-md py-space-sm rounded-lg bg-surface-container-lowest text-on-surface placeholder:text-outline/70 border border-outline-variant/40 shadow-sm font-body-md"
+                          id="full-name"
+                          placeholder="e.g. Seshagiri Rao / Ananya"
+                          required=""
+                          type="text"
+                        />
+                      </div>
+                      <!-- Phone Number -->
+                      <div class="flex flex-col gap-1.5">
+                        <label
+                          class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant"
+                          for="phone-number"
+                          >Phone / WhatsApp Number *</label
+                        >
+                        <input
+                          class="gold-input w-full px-space-md py-space-sm rounded-lg bg-surface-container-lowest text-on-surface placeholder:text-outline/70 border border-outline-variant/40 shadow-sm font-body-md"
+                          id="phone-number"
+                          placeholder="+91 98765 43210"
+                          required=""
+                          type="tel"
+                        />
+                      </div>
+                      <!-- Event Type Dropdown -->
+                      <div class="flex flex-col gap-1.5">
+                        <label
+                          class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant"
+                          for="event-type"
+                          >Celebration Type *</label
+                        >
+                        <select
+                          class="gold-input w-full px-space-md py-space-sm rounded-lg bg-surface-container-lowest text-on-surface border border-outline-variant/40 shadow-sm font-body-md appearance-none cursor-pointer"
+                          id="event-type"
+                          required=""
+                        >
+                          <option
+                            class="text-outline"
+                            disabled=""
+                            selected=""
+                            value=""
+                          >
+                            Select Event
+                          </option>
+                          <option value="wedding">
+                            Grand Telugu Wedding (Pelli)
+                          </option>
+                          <option value="reception">
+                            Reception &amp; Sangeet Gala
+                          </option>
+                          <option value="seemantham">
+                            Seemantham / Cradle Ceremony
+                          </option>
+                          <option value="housewarming">
+                            Gruhapravesam (Housewarming)
+                          </option>
+                          <option value="corporate">
+                            Corporate VIP Summit &amp; Gala
+                          </option>
+                          <option value="anniversary">
+                            Milestone Jubilee / Birthday
+                          </option>
+                        </select>
+                      </div>
+                      <!-- Expected Guests Tier -->
+                      <div class="flex flex-col gap-1.5">
+                        <label
+                          class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant"
+                          for="guest-tier"
+                          >Expected Guests *</label
+                        >
+                        <select
+                          class="gold-input w-full px-space-md py-space-sm rounded-lg bg-surface-container-lowest text-on-surface border border-outline-variant/40 shadow-sm font-body-md appearance-none cursor-pointer"
+                          id="guest-tier"
+                          required=""
+                        >
+                          <option value="50-250">
+                            Intimate Gathering (50 - 250 Guests)
+                          </option>
+                          <option selected="" value="300-600">
+                            Grand Wedding (300 - 600 Guests)
+                          </option>
+                          <option value="600-1500">
+                            Royal Celebration (600 - 1500 Guests)
+                          </option>
+                          <option value="1500+">
+                            Mega Nuptial Banquet (1500+ Guests)
+                          </option>
+                        </select>
+                      </div>
+                      <!-- Auspicious Event Date -->
+                      <div class="flex flex-col gap-1.5">
+                        <label
+                          class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant"
+                          for="event-date"
+                          >Event Date *</label
+                        >
+                        <input
+                          class="gold-input w-full px-space-md py-space-sm rounded-lg bg-surface-container-lowest text-on-surface border border-outline-variant/40 shadow-sm font-body-md"
+                          id="event-date"
+                          required=""
+                          type="date"
+                        />
+                      </div>
+                      <!-- Preferred Cuisine Direction -->
+                      <div class="flex flex-col gap-1.5">
+                        <label
+                          class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant"
+                          for="cuisine-pref"
+                          >Cuisine Preference</label
+                        >
+                        <select
+                          class="gold-input w-full px-space-md py-space-sm rounded-lg bg-surface-container-lowest text-on-surface border border-outline-variant/40 shadow-sm font-body-md appearance-none cursor-pointer"
+                          id="cuisine-pref"
+                        >
+                          <option selected="" value="both">
+                            Traditional Pure Veg + Royal Non-Veg
+                          </option>
+                          <option value="pure-veg">
+                            100% Traditional Pure Vegetarian
+                          </option>
+                          <option value="hyderabadi">
+                            Hyderabadi Dum Specialties Dominant
+                          </option>
+                          <option value="fusion">
+                            Pan-Indian &amp; Continental Fusion Counters
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <!-- Special Food Requests & Notes -->
+                    <div class="flex flex-col gap-1.5">
+                      <label
+                        class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant"
+                        for="special-requests"
+                        >Special Food Requests &amp; Venue Details</label
+                      >
+                      <textarea
+                        class="gold-input w-full px-space-md py-space-sm rounded-lg bg-surface-container-lowest text-on-surface placeholder:text-outline/70 border border-outline-variant/40 shadow-sm font-body-md resize-none"
+                        id="special-requests"
+                        placeholder="Specify venue city, favored Mastar signature dishes (e.g., Pot Dum Biryani, Natu Kodi Pulusu, Bobbatlu live counter), or guest allergies..."
+                        rows="3"
+                      ></textarea>
+                    </div>
+                    <!-- High Impact Crimson CTA Button -->
+                    <div
+                      class="pt-space-xs flex flex-col sm:flex-row items-center justify-between gap-space-md"
+                    >
+                      <div
+                        class="flex items-center gap-space-xs text-on-surface-variant"
+                      >
+                        <span
+                          class="material-symbols-outlined text-[18px] text-primary"
+                          >verified_user</span
+                        >
+                        <span class="font-body-sm text-body-sm"
+                          >Zero spam guarantee. Master Chef will connect
+                          directly.</span
+                        >
+                      </div>
+                      <button
+                        class="btn-shimmer w-full sm:w-auto inline-flex items-center justify-center gap-space-xs px-space-lg py-space-md rounded-lg bg-secondary-container hover:bg-secondary text-on-secondary font-label-lg text-label-lg uppercase tracking-wider shadow-[0_4px_20px_rgba(229,57,53,0.35)] transition-all hover:scale-[1.02] active:scale-95 cursor-pointer"
+                        type="submit"
+                      >
+                        <span class="material-symbols-outlined text-[20px]"
+                          >restaurant_menu</span
+                        >
+                        Send Catering Inquiry &amp; Request Menu
+                      </button>
+                    </div>
+                    <!-- Notification Banner (Revealed via JS on submit) -->
+                    <div
+                      class="hidden p-space-md rounded-lg bg-primary-container text-on-primary-container font-title-md text-title-md flex items-center gap-space-xs transition-all duration-300"
+                      id="submission-success"
+                    >
+                      <span class="material-symbols-outlined text-[24px]"
+                        >task_alt</span
+                      >
+                      <div class="">
+                        Thank you! Master Chef Hareesh's concierge team has
+                        received your inquiry. We will contact you within 2
+                        hours.
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      <script>
+        // Ambient Golden Embers / Sparkle Particles Animation
+        (function initGoldenParticles() {
+          const canvas = document.getElementById("ambient-gold-canvas");
+          if (!canvas) return;
+          const ctx = canvas.getContext("2d");
+          let width = (canvas.width = canvas.offsetWidth);
+          let height = (canvas.height = canvas.offsetHeight);
+
+          window.addEventListener("resize", () => {
+            width = canvas.width = canvas.offsetWidth;
+            height = canvas.height = canvas.offsetHeight;
+          });
+
+          const particles = [];
+          const count = 35;
+
+          for (let i = 0; i < count; i++) {
+            particles.push({
+              x: Math.random() * width,
+              y: Math.random() * height,
+              radius: Math.random() * 1.8 + 0.6,
+              alpha: Math.random() * 0.5 + 0.15,
+              speedY: Math.random() * 0.45 + 0.15,
+              speedX: (Math.random() - 0.5) * 0.2,
+              pulseSpeed: Math.random() * 0.02 + 0.005,
+            });
+          }
+
+          function render() {
+            ctx.clearRect(0, 0, width, height);
+
+            particles.forEach((p) => {
+              p.y -= p.speedY;
+              p.x += p.speedX;
+              p.alpha += Math.sin(Date.now() * p.pulseSpeed) * 0.005;
+              if (p.alpha < 0.1) p.alpha = 0.1;
+              if (p.alpha > 0.65) p.alpha = 0.65;
+
+              if (p.y < -10) {
+                p.y = height + 10;
+                p.x = Math.random() * width;
+              }
+              if (p.x < -10) p.x = width + 10;
+              if (p.x > width + 10) p.x = -10;
+
+              ctx.beginPath();
+              ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+              ctx.fillStyle = `rgba(242, 202, 80, ${p.alpha})`;
+              ctx.shadowBlur = 8;
+              ctx.shadowColor = "rgba(212, 175, 55, 0.45)";
+              ctx.fill();
+            });
+
+            requestAnimationFrame(render);
+          }
+          render();
+        })();
+
+        // Animated Numbers Counter for Hero Metrics
+        (function initCounters() {
+          const counters = document.querySelectorAll(".metric-counter");
+          let animated = false;
+
+          function startCounting() {
+            if (animated) return;
+            animated = true;
+
+            counters.forEach((counter) => {
+              const target = +counter.getAttribute("data-target");
+              const suffix = counter.getAttribute("data-suffix") || "";
+              const duration = 1400; // ms
+              const startTime = performance.now();
+
+              function updateCount(currentTime) {
+                const progress = Math.min(
+                  (currentTime - startTime) / duration,
+                  1,
+                );
+                // Ease-out expo
+                const easeProgress = 1 - Math.pow(1 - progress, 3);
+                const currentVal = Math.floor(easeProgress * target);
+
+                counter.textContent = currentVal.toLocaleString() + suffix;
+
+                if (progress < 1) {
+                  requestAnimationFrame(updateCount);
+                } else {
+                  counter.textContent = target.toLocaleString() + suffix;
+                }
+              }
+              requestAnimationFrame(updateCount);
+            });
+          }
+
+          // Trigger on page load smoothly
+          setTimeout(startCounting, 350);
+        })();
+
+        // Interactive Guest Slider Logic
+        const slider = document.getElementById("guest-slider");
+        const guestDisplay = document.getElementById("guest-display");
+        const serviceTypeDisplay = document.getElementById(
+          "service-type-display",
+        );
+        const serviceDescDisplay = document.getElementById(
+          "service-desc-display",
+        );
+        const serviceCard = document.getElementById("service-card");
+
+        if (slider && guestDisplay) {
+          slider.addEventListener("input", function () {
+            const val = parseInt(this.value, 10);
+            guestDisplay.textContent =
+              val >= 5000 ? "5,000+ Guests" : val.toLocaleString() + " Guests";
+            guestDisplay.classList.add("scale-105", "text-primary-fixed");
+            setTimeout(() => {
+              guestDisplay.classList.remove("scale-105", "text-primary-fixed");
+            }, 150);
+
+            if (val < 200) {
+              serviceTypeDisplay.textContent =
+                "Intimate Royal Heirloom Service";
+              serviceDescDisplay.textContent =
+                "Traditional bell-metal service, 8 seasoned cooks, 1 live dosa/starter counter, and bespoke welcome drinks.";
+            } else if (val < 600) {
+              serviceTypeDisplay.textContent =
+                "Grand Silver Buffet + 4 Live Counters";
+              serviceDescDisplay.textContent =
+                "Includes dedicated head chef, 35 uniformed stewards, copper chaffers, and royal welcome beverage counter.";
+            } else if (val < 1500) {
+              serviceTypeDisplay.textContent =
+                "Regal Nuptial Pavilion + 8 Live Courts";
+              serviceDescDisplay.textContent =
+                "Full twin-line banquet setup, master tandoor station, sweet bazaar, chaat street, and 80 liveried attendants.";
+            } else {
+              serviceTypeDisplay.textContent =
+                "Imperial Mega-Banquet Directorate";
+              serviceDescDisplay.textContent =
+                "Industrial capacity mobile kitchen fleet, simultaneous 4-quadrant dining, 200+ service staff, and Master Hareesh on-site execution.";
+            }
+
+            if (serviceCard) {
+              serviceCard.classList.add("border-primary/60");
+              setTimeout(() => {
+                serviceCard.classList.remove("border-primary/60");
+              }, 300);
+            }
+          });
+        }
+
+        // Reservation Form Submission Interaction
+        function handleBookingSubmit() {
+          const successBanner = document.getElementById("submission-success");
+          if (successBanner) {
+            successBanner.classList.remove("hidden");
+            successBanner.classList.add("animate-float-subtle");
+            successBanner.scrollIntoView({
+              behavior: "smooth",
+              block: "nearest",
+            });
+            document.getElementById("catering-booking-form").reset();
+          }
+        }
+      </script>
+    </main>
+    <footer
+      class="w-full bg-surface-container-lowest text-on-surface-variant shadow-[0_-4px_32px_rgba(0,0,0,0.7)] border-t border-outline-variant/30"
+    >
+      <div
+        class="max-w-[1320px] mx-auto px-margin-mobile md:px-margin lg:px-margin-desktop py-space-xl"
+      >
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter-lg pb-space-xl"
+        >
+          <div class="flex flex-col gap-space-md">
+            <div class="flex items-center gap-space-sm">
+              <img
+                alt="Logo Crest"
+                class="h-8 w-auto object-contain"
+                src="https://lh3.googleusercontent.com/aida/AEtjO1XJ7QPQjlJQIj7Mn_Yll74CO6RZX8zpPoC96H5xg8sxsQZ92F_oOIe2r3j_NxJETzaS8bOPURwkO_KEiYhxdv7_rGSE-NilpN8Dft-TwWz8Xtno-sQgY5pAhsizRSdvuaU_kmYNZWvDZVMspHhTTm6qSR2bPeBuGOBd-1XZWQ0FGcrlFW6LY3VTbp6TxYgfXneqmdylnnEWRh9q6cFf3odwATFQFJ5NBuEI201qLMEaJIbAaAEf-N_NgsY"
+              /><span class="font-headline-sm text-headline-sm text-primary"
+                >Bhuvika Caterings</span
+              >
+            </div>
+            <p
+              class="font-body-sm text-body-sm text-on-surface-variant max-w-sm"
+            >
+              Crafting unforgettable culinary spectacles and grand royal
+              banquets across Andhra Pradesh &amp; Telangana. Guided by culinary
+              legacy, authentic craftsmanship, and refined luxury dining.
+            </p>
+            <div class="flex items-center gap-space-sm">
+              <span
+                class="inline-flex items-center gap-space-xs px-space-sm py-space-xs rounded-full bg-surface-container text-tertiary font-label-sm text-label-sm border border-outline-variant/40 hover:border-primary/40 transition-colors"
+                ><span class="material-symbols-outlined text-[14px]"
+                  >verified</span
+                >100 % successrate</span
+              ><span
+                class="inline-flex items-center gap-space-xs px-space-sm py-space-xs rounded-full bg-surface-container text-tertiary font-label-sm text-label-sm border border-outline-variant/40 hover:border-primary/40 transition-colors"
+                ><span class="material-symbols-outlined text-[14px]"
+                  >health_and_safety</span
+                >Pure trust</span
+              >
+            </div>
+          </div>
+          <div class="flex flex-col gap-space-sm">
+            <span
+              class="font-headline-sm text-headline-sm text-on-surface text-lg mb-space-xs"
+              >Quick Navigation</span
+            ><a
+              class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors"
+              data-path="services"
+              href="#"
+              >Bhuvika Caterings</a
+            ><a
+              class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors"
+              data-path="story"
+              href="#"
+              ><br
+            /></a>
+          </div>
+          <div class="flex flex-col gap-space-sm">
+            <span
+              class="font-headline-sm text-headline-sm text-on-surface text-lg mb-space-xs"
+              >Regional Headquarters</span
+            >
+            <div class="flex flex-col gap-space-xs">
+              <span
+                class="font-title-md text-title-md text-primary flex items-center gap-space-xs"
+                ><span class="material-symbols-outlined text-[18px]"
+                  >location_on</span
+                >Hanamkonda</span
+              >
+              <p class="font-body-sm text-body-sm text-on-surface-variant">
+                Mucherla, Hasanparthy, Hanamkonda, TG 506015
+              </p>
+            </div>
+            <div class="flex flex-col gap-space-xs mt-space-sm"></div>
+          </div>
+          <div class="flex flex-col gap-space-md">
+            <span
+              class="font-headline-sm text-headline-sm text-on-surface text-lg"
+              >Catering Reservations</span
+            >
+            <p class="font-body-sm text-body-sm text-on-surface-variant">
+              Private culinary tastings, dates reservation, and customized
+              banquet menu consultations.
+            </p>
+            <div class="flex flex-col gap-space-xs">
+              <span
+                class="font-label-sm text-label-sm uppercase text-on-surface-variant"
+                >Direct Telephone</span
+              ><a
+                class="font-title-md text-title-md text-tertiary hover:text-primary transition-colors"
+                href="tel:+919177694696"
+                >+91 91776 94696</a
+              >
+            </div>
+            <div class="flex flex-col gap-space-xs">
+              <span
+                class="font-label-sm text-label-sm uppercase text-on-surface-variant"
+                >Inquiries &amp; Bookings</span
+              ><a
+                class="font-body-md text-body-md text-on-surface hover:text-primary transition-colors"
+                href="mailto:royal@bhuvikacaterings.com"
+                >masterhareesh@bhuvikacaterings.com</a
+              >
+            </div>
+          </div>
+        </div>
+        <div
+          class="pt-space-lg flex flex-col md:flex-row items-center justify-between gap-space-md text-on-surface-variant border-t border-outline-variant/30"
+        >
+          <p class="font-body-sm text-body-sm">
+            © 2024 Hareesh Mastar Bhuvika Caterings &amp; Cookings. All royal
+            rights reserved.
+          </p>
+          <div class="flex items-center gap-space-lg">
+            <a
+              class="font-body-sm text-body-sm hover:text-primary transition-colors"
+              data-path="privacy-policy"
+              href="#"
+              >Privacy Policy</a
+            ><a
+              class="font-body-sm text-body-sm hover:text-primary transition-colors"
+              data-path="terms-of-service"
+              href="#"
+              >Terms of Banquet</a
+            ><a
+              class="font-body-sm text-body-sm hover:text-primary transition-colors"
+              data-path="hygiene-standards"
+              href="#"
+              >Hygiene &amp; Food Safety</a
+            >
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
